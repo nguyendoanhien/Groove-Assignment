@@ -1,0 +1,77 @@
+//tag helper
+
+1) The .NET framework is:
+ 
+ 1/ Software development platform developed by Microsoft. 
+ 2/ To create applications which would run on the Windows Platform
+_____________________________________________________________________________________________________________________________________________
+
+2) The .NET Core framework is
+ 1/ The lasted web framework from Microsoft. 
+ 2/ It is a cross platform. 
+ 3/ It is free and open source and supported by Microsoft. 
+ 4/ It can be used to develop web applications. 
+ 7/ The latest version of .NET Core is .NET Core 3.0
+_____________________________________________________________________________________________________________________________________________
+3) Some differences between .NET Core and .NET framework?
+ 2/ .NET Core is cross platform, but .NET framework is not. 
+
+_____________________________________________________________________________________________________________________________________________
+
+4) NET Standard is
+
+ 1/ A set of APIs that all .NET platforms have to implement.	
+_____________________________________________________________________________________________________________________________________________
+
+5) When should we use .NET Core and .NET Standard Class Library project types?
+ 1/ Use a .NET Standard library when you want to increase the number of apps that will be compatible with your library, and you are okay with a decrease in the .NET API surface area your library can access
+ 2/ Use a .NET Core library when you want to increase the .NET API surface area your library can access, and you are okay with allowing only .NET Core apps to be compatible with your library
+_____________________________________________________________________________________________________________________________________________
+6) Can ASP.NET Core work with the .NET framework?
+ 1/ YES!
+_____________________________________________________________________________________________________________________________________________
+7) What is Kestrel?
+ 1/ A Cross-Platform web server built for ASP.NET Core
+_____________________________________________________________________________________________________________________________________________
+8) What is .csproj? 
+- It is the project file for .NET applications and contains the details required for the .NET tooling to build your project. It defines the type of project being built, which platform the project targets, and which NuGet packages the project depends on. 
+- Some changes of .csproj in ASP.NET Core: + No GUIDs + Implicit file includes + No paths to NuGet package dlls
+- In the csproj project file, it has some components. 
+For example: 
++ <Project Sdk="Microsoft.NET.Sdk.Web">: The SDK attribute specifies the type of project you're building
++ <TargetFramework>netcoreapp2.2</TargetFramework>: Specifies the target framework for the application. If you want to target multiple frameworks, you should like this example: <TargetFrameworks>net451;netstandard1.4</TargetFrameworks>
++ <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>: Specifies how the application should be hosted. It has two values: InProcess (hosts the app inside of the IIS work process w3wp.exe) or OutOfProcess (hosting model forward web requests to a backend ASP.NET Core app running the Kestrel server. The default is OutOfProcess hosting
++ PackageReference: Used to Include a reference to the NuGet package that is installed for the application. Microsoft.AspNetCore.App is a metapackage. A metapackage is a NuGet package that contains no code, referencing one or more other NuGet packages instead. It just contains a list of dependencies.
+_____________________________________________________________________________________________________________________________________________
+9) Static files in ASP.NET Core are? Give samples
+ Static files are:
+	+ Stored within your project's web root directory. 
+	+ Accessible via a path relative to the web root.
+Example:The Web Application project template contains several folders within the wwwroot folder:
+	wwwroot
+	  +css
+	  +images
+	  +js
+_____________________________________________________________________________________________________________________________________________
+10) Startup.cs file is to?
++It is like Global.asax in the traditional .NET application. As the name suggests, it is executed first when the application starts.
+_____________________________________________________________________________________________________________________________________________
+11) How many common methods in Startup.cs file? List out and purposes of each?
+3 methods.
++ Startup //Constructor
++ ConfigureServices: This method is used to configure services that are used by the application.
+ When the application is requested for the first time, it calls ConfigureServices method.
+ This method must be declared with a public access modifier, so that environment will be able to read the content from metadata
++ Configure:This method is used to define how the application will respond on each HTTP request i.e.
+ we can control the ASP.net pipeline. This method is also used to configure middleware in HTTP pipeline.
+ This method accept IApplicationBuilder as a parameter. This method may accept some optional parameter such as IHostingEnvironment and ILoggerFactory.
+ Whenever any service is added to ConfigureServices method, it is available to use in this method
+=>The Startup class is mandatory and it is the entry point of the application.
+ With the help of this class we can configure the environment in our ASP.net Core application.
+ We can use Constructor and two different methods: ConfigureServices and Configure for setting up the environment.
+ This class creates services and injects services as dependencies so the rest of the application can use these dependencies. The ConfigureServices used to register the service and Configure method allow us to add middleware and services to the HTTP pipeline. This is the reason ConfigureServices method calls before Configure method.
+_____________________________________________________________________________________________________________________________________________
+12) Dependency Injection (DI) is to?
++Create applications that are easy to write and maintain over time as the application evolves
++Easy to share data and functionality as the angular injector provides a Singleton i.e a single instance of the service
++Easy to write and maintain unit tests as the dependencies can be mocked
