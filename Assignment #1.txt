@@ -1,0 +1,50 @@
+1 The .NET framework is: 1, 2, 3
+
+-----------------------------------------------------------------
+2 The .NET Core framework is: 1, 2, 3, 4, 5, 6, 7
+
+-------------------------------------------------------------------
+3 Some differences between .NET Core and .NET framework?: 2, 4
+
+-------------------------------------------------------------------
+4 .NET Standard is: 1, 2
+
+-------------------------------------------------------------------
+5 When should we use .NET Core and .NET Standard Class Library project types?: 1, 2
+
+-------------------------------------------------------------------
+6 Can ASP.NET Core work with the .NET framework?: 1
+
+-------------------------------------------------------------------
+7 What is Kestrel?: 1, 3
+
+-------------------------------------------------------------------
+8 What is .csproj? 
+	C# (C Sharp) programming project created with Microsoft Visual Studio; 
+	contains project settings and references to files used by the project; saved in the MSBuild format, 
+	which can be compiled into an executable program using the MSBuild platform.
+
+-------------------------------------------------------------------
+9 Static files in ASP.NET Core are? Give samples
+	Static files are stored within your project's web root directory. 
+	The default directory is <content_root>/wwwroot, but it can be changed via the UseWebRoot method
+	Static files are accessible via a path relative to the web root.
+	Example: css, images, js
+
+-------------------------------------------------------------------
+10 Startup.cs file is to?
+	The Startup class configures services and the app's request pipeline.
+	The Startup class is specified to the app when the app's host is built. 
+	The app's host is built when Build is called on the host builder in the Program class. 
+
+11 How many common methods in Startup.cs file? List out and purposes of each?
+	-ConfigureServices 
+		Use this method to add services to the container.
+	-Configure
+		Use this method to configure the HTTP request pipeline.
+
+-------------------------------------------------------------------
+12 Dependency Injection (DI) is to? 
+	Dependency Injection (DI) is a pattern that can help developers decouple the different pieces of their applications. 
+	It provides a mechanism for the construction of dependency graphs independent of the class definitions.
+	Supplies the dependencies of one object from other object  and match the “Dependency inversion principle” in S.O.L.I.D principle. 
