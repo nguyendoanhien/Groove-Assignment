@@ -1,0 +1,67 @@
+Assignment 01:
+--------------------------------------------------------------------------------------------------------------------
+Question 1. The .NET framework is:
+1/ Software development platform developed by Microsoft. 
+2/ To create applications which would run on the Windows Platform.
+
+--------------------------------------------------------------------------------------------------------------------
+Question 2. The .NET Core framework is: 
+1/ The lasted web framework from Microsoft. 
+2/ It is a cross platform. 
+3/ It is free and open source and supported by Microsoft. 
+4/ It can be used to develop web applications. 
+5/ It is also compatible with .NET framework, Xamarin(for mobile application) via .NET standard library.
+7/ The latest version of .NET Core is .NET Core 3.0
+
+--------------------------------------------------------------------------------------------------------------------
+Question 3. Some differences between .NET Core and .NET framework?  
+2/ .NET Core is cross platform, but .NET framework is not. 
+4/ .NET Core is more effective than .NET framework.
+
+--------------------------------------------------------------------------------------------------------------------
+Question 4. .NET Standard is:
+1/ A set of APIs that all .NET platforms have to implement.
+2/ To unifies the .NET platforms and prevents future fragmentation.	
+
+--------------------------------------------------------------------------------------------------------------------
+Question 5. When should we use .NET Core and .NET Standard Class Library project types? 
+1/ Use a .NET Standard library when you want to increase the number of apps that will be compatible with your library, and you are okay with a decrease in the .NET API surface area your library can access
+2/ Use a .NET Core library when you want to increase the .NET API surface area your library can access, and you are okay with allowing only .NET Core apps to be compatible with your library.
+
+--------------------------------------------------------------------------------------------------------------------
+Question 6. Can ASP.NET Core work with the .NET framework? 
+- YES.
+
+--------------------------------------------------------------------------------------------------------------------
+Question 7. What is Kestrel?
+- A Cross-Platform web server built for ASP.NET Core
+
+--------------------------------------------------------------------------------------------------------------------
+Question 8. What is .csproj? 
+- It is the project file for .NET applications and contains the details required for the .NET tooling to build your project. It defines the type of project being built, which platform the project targets, and which NuGet packages the project depends on. 
+- Some changes of .csproj in ASP.NET Core: + No GUIDs + Implicit file includes + No paths to NuGet package dlls
+- In the csproj project file, it has some components. 
+For example: 
++ <Project Sdk="Microsoft.NET.Sdk.Web">: The SDK attribute specifies the type of project you're building
++ <TargetFramework>netcoreapp2.2</TargetFramework>: Specifies the target framework for the application. If you want to target multiple frameworks, you should do like this example: <TargetFrameworks>net451;netstandard1.4</TargetFrameworks>
++ <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>: Specifies how the application should be hosted. It has two values: InProcess (hosts the app inside of the IIS work process w3wp.exe) or OutOfProcess (hosting model forward web requests to a backend ASP.NET Core app running the Kestrel server. The default is OutOfProcess hosting
++ PackageReference: Used to Include a reference to the NuGet package that is installed for the application. Microsoft.AspNetCore.App is a metapackage. A metapackage is a NuGet package that contains no code, referencing one or more other NuGet packages instead. It just contains a list of dependencies.
+
+--------------------------------------------------------------------------------------------------------------------
+Question 9. Static files in ASP.NET Core are? Give samples
+- Static files are typically located in the web root (wwwroot) folder. By default, that is the only place where we can serve up files directly from the file system.
+- Examples: JavaScript files, images, CSS files, etc.
+--------------------------------------------------------------------------------------------------------------------
+Question 10. Startup.cs file is to?
+- The Startup class is responsible for configuring two main aspects of your application: Service registration and Middleware MVC
+
+--------------------------------------------------------------------------------------------------------------------
+Question 11. How many common methods in Startup.cs file? List out and purposes of each?
+- The Startup.cs file includes: 
++ ConfigureServices method: To correctly create classes at runtime, dependencies are registered with a container.
++ Configure method: The middle ware pipeline is defined in the Configure method. It controls how your application responds to requests.
+- Any services registered in the ConfigureServices method are available to the Configure method. Once configuration is complete, an IWebHost is created by Build() on the WebHostBuilder.
+--------------------------------------------------------------------------------------------------------------------
+Question 12. Dependency Injection (DI) is to?
+- It is a technique that helps create flexible applications and simplifies unit testing.					
+- Easier to change the behavior of an application by changing the components that implement the interfaces that define application features.												
