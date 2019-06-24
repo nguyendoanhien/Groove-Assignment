@@ -17,7 +17,10 @@ namespace PersonalNotesAPI.Controllers
         {
             return new string[] { "value1", "value2" };
         }
-
+        public IEnumerable<string> Get2()
+        {
+            return new string[] { "value1", "value2" };
+        }
         // GET: api/Notebooks/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
