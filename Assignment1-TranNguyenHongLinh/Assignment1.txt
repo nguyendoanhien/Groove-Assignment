@@ -1,0 +1,62 @@
+1)The .NET framework is:
+	+Software development platform developed by Microsoft
+	+To create applications which would run on the Windows Platform
+	+To create (1) Form-based, (2) Web-based applications and (3) Web services
+
+2)The .NET Core framework is:
+	+The latest web framework from Microsoft.
+	+It is a cross platform.
+	+It is free and open source and supported by Microsoft.
+	+It can be used to develop web applications.
+	+It is also compatible with .NET framework, Xamarin(for mobile application) via .NET standard library.
+	+It is easy to use and very easy to learn.
+	+The latest version of .NET Core is .NET Core 3.0.(offically released in September)
+
+3)Some differences between .NET Core and .NET framework?
+	+.NET Core is cross platform, but .NET framework is not.
+	+.NET Core is more effective than .NET framework.
+
+4).NET Standard is:
+	+A set of APIs that all .NET platforms have to implement.
+	+To unifies the .NET platforms and prevents future fragmentation
+
+5)When should we use .NET Core and .NET Standard Class Library project types?
+	+Use a .NET Standard library when you want to increase the number of apps that will be compatible with your library, and you are okay with a decrease in the .NET API surface area your library can access
+	+Use a .NET Core library when you want to increase the .NET API surface area your library can access, and you are okay with allowing only .NET Core apps to be compatible with your library.
+
+6)Can ASP.NET Core work with the .NET framework?
+	+Yes
+
+7)What is Kestrel?
+	+A cross-platform web server built for ASP.NET Core.
+	+Really fast.
+
+8)What is .csproj?
+	+".csproj" is a Visual Studio .NET C# Project file extension. 
+	+This file will have information about the files included in that project, assemblies used in that project, project GUID and project version etc. 
+	+This file is related to your project. 
+	+It will be automatically generated when we create 
+
+9)Static files in ASP.NET Core are? Give samples
+-Static files are:
+	+ Stored within your project's web root directory. 
+	+ Accessible via a path relative to the web root.
+Example:The Web Application project template contains several folders within the wwwroot folder:
+	wwwroot
+	  +css
+	  +images
+	  +js
+
+10)Startup.cs file is to?
+	+Startup.cs file is more about registering services and injection of modules in HTTP pipeline.
+	+Startup.cs file contains Startup class which triggers at first when application launches and even in each HTTP request/response.
+
+11)How many common methods in Startup.cs file? List out and purposes of each?
+Startup class includes two public methods: ConfigureServices and Configure.
+	+ConfigureServices():The ConfigureServices method is a place where you can register your dependent classes with the built-in IoC container.
+	+Configure() : The Configure method is a place where you can configure application request pipeline for your application using IApplicationBuilder instance that is provided by the built-in IoC container.
+
+12)Dependency Injection (DI) is to?
+	+Dependency Injection (DI) is to supplies the dependencies of one object from other object.
+	+The "injection" refers to the passing of a dependency (a service) into the object (a client) that would use it.
+	+A "dependency" is an object that can be used. 
