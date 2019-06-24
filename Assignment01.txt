@@ -12,7 +12,6 @@ ________________________________________________________________________________
  3/ It is free and open source and supported by Microsoft. 
  4/ It can be used to develop web applications. 
  5/ It is also compatible with .NET framework, Xamarin(for mobile application) via .NET standard library
- 6/ It is easy to use and very easy to learn.
  7/ The latest version of .NET Core is .NET Core 3.0
 _____________________________________________________________________________________________________________________________________________
 3) Some differences between .NET Core and .NET framework?
