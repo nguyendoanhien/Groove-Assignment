@@ -13,8 +13,30 @@ namespace PersonalNotesAPI.Data
 
         public DataStorage()
         {
-            Notes = new List<Note>();
-            Notebooks = new List<Notebook>();
+            Notes = new List<Note>()
+            {
+                new Note()
+                {
+                    Id=1,NotebookId=1,Title="123",Description="Description"
+                },
+                new Note()
+                {
+                    Id=2,NotebookId=2
+                }
+
+
+            };
+            Notebooks = new List<Notebook>()
+            {
+                new Notebook()
+                {
+                    Id=1
+                },new Notebook()
+                {
+                    Id=2,ParentId=1
+                },
+
+            };
         }
     }
 }

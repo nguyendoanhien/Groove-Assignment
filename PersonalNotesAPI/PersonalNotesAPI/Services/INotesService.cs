@@ -1,4 +1,5 @@
 ﻿using PersonalNotesAPI.Models;
+using PersonalNotesAPI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace PersonalNotesAPI.Services
         Note GetSingleById(int id);
         Note CreateNew(Note note);
         Note Delete(int id);
-        Note Upate(Note note);
+        Note Upate(NoteVM note);
     }
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonalNotesAPI.Models;
 using PersonalNotesAPI.Services;
+using PersonalNotesAPI.ViewModels;
 
 namespace PersonalNotesAPI.Controllers
 {
@@ -49,16 +50,16 @@ namespace PersonalNotesAPI.Controllers
                 return BadRequest();
             }
 
-            _notesService.CreateNew(item);
-            
+            var newItem = _notesService.CreateNew(item);
 
-            return CreatedAtRoute("Getnote", new { id = item.Id }, item);
+
+            return CreatedAtRoute("Getnote", new { id = newItem.Id }, newItem);
         }
         #endregion
 
         #region snippet_Update
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] Note item)
+        public IActionResult Update(int id, [FromBody] NoteVM item)
         {
             if (item == null || item.Id != id)
             {
@@ -74,8 +75,8 @@ namespace PersonalNotesAPI.Controllers
             //note.IsComplete = item.IsComplete;
             //note.Name = item.Name;
 
-            _notesService.Upate(note);
-          
+            _notesService.Upate(item);
+
             return new NoContentResult();
         }
         #endregion
@@ -91,7 +92,7 @@ namespace PersonalNotesAPI.Controllers
             }
 
             _notesService.Delete(id);
-          
+
             return new NoContentResult();
         }
         #endregion

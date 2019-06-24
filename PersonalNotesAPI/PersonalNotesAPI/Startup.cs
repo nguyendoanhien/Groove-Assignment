@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PersonalNotesAPI.Data;
+using PersonalNotesAPI.Mappings;
 using PersonalNotesAPI.Services;
 
 namespace PersonalNotesAPI
@@ -19,6 +20,7 @@ namespace PersonalNotesAPI
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            MappingConfiguration.Configure();
         }
 
         public IConfiguration Configuration { get; }
