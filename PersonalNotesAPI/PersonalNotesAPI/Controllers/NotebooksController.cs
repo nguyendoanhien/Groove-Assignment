@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonalNotesAPI.Models;
+using PersonalNotesAPI.Service;
 
 namespace PersonalNotesAPI.Controllers
 {
@@ -34,12 +37,13 @@ namespace PersonalNotesAPI.Controllers
 
         // POST: api/Notebooks
         [HttpPost]
-        public void Post([FromBody] Notebook value)
+        public Notebook Post([FromBody] Notebook value)
         {
             if(ModelState.IsValid)
             {
                 _notebooksRepository.AddNotebook(value);
             }
+            return value;
         }
 
         // PUT: api/Notebooks/5
@@ -58,23 +62,6 @@ namespace PersonalNotesAPI.Controllers
             {
                 _notebooksRepository.DeleteNotebook(id);
                 Content("Deleted");
-            }
-        }
-
-        public JsonResult ValidateDate(string Date)
-        {
-            DateTime parsedDate;
-            if (!DateTime.TryParse(Date, out parsedDate))
-            {
-                return Json("Please enter a valid date (mm/dd/yyyy)");
-            }
-            else if (DateTime.Now > parsedDate)
-            {
-                return Json("Please enter a date in the future");
-            }
-            else
-            {
-                return Json(true);
             }
         }
     }

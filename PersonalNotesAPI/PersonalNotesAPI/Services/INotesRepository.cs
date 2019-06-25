@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PersonalNotesAPI.Models
+using PersonalNotesAPI.Models;
+namespace PersonalNotesAPI.Service
 {
     public interface INotesRepository
     {

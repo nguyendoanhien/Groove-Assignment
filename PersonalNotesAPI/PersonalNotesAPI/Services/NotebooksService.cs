@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-namespace PersonalNotesAPI.Models
+using PersonalNotesAPI.Models;
+namespace PersonalNotesAPI.Service
 {
     public class NotebooksService : INotebooksRepository
     {
-        private DataContext _db;
-        public NotebooksService(DataContext db)
+        private DataProvider _db;
+        public NotebooksService(DataProvider db)
         {
             _db = db;
         }
@@ -31,5 +31,13 @@ namespace PersonalNotesAPI.Models
         }
 
         public Notebook UpdateNotebook(Notebook notebook) => AddNotebook(notebook);
+
+        public bool IsExistNotebook(int id)
+        {
+            Notebook notebook = _db.notebooks.FirstOrDefault(x => x.Id == id);
+            if (notebook != null)
+                return false;
+            else return true;
+        }
     }
 }

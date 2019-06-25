@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PersonalNotesAPI.Models
+using PersonalNotesAPI.Models;
+namespace PersonalNotesAPI.Service
 {
     public class NotesService : INotesRepository
     {
-        private DataContext _db;
-        public NotesService(DataContext db)
+        private DataProvider _db;
+        public NotesService(DataProvider db)
         {
             _db = db;
         }
@@ -32,11 +33,6 @@ namespace PersonalNotesAPI.Models
         }
 
         public Note UpdateNote(Note note) => AddNote(note);
-        //{
-        //    Note newNote = _db.FirstOrDefault(x => x.Id == note.Id);
-        //    _db.Remove(note);
-        //    _db.Add(newNote);
-        //    return newNote
-        //}
+        
     }
 }

@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace PersonalNotesAPI.Models
 {
-    public class DataContext
+    public class DataProvider
     {
         public List<Note> notes { get; set; }
         public List<Notebook> notebooks { get; set; }
 
-        public DataContext()
+        public DataProvider()
         {
             notes = new List<Note>() {
              new Note {

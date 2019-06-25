@@ -9,7 +9,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PersonalNotesAPI.Middleware;
 using PersonalNotesAPI.Models;
+using PersonalNotesAPI.Service;
 
 namespace PersonalNotesAPI
 {
@@ -34,13 +36,14 @@ namespace PersonalNotesAPI
 
             services.AddScoped<INotesRepository, NotesService>();
             services.AddScoped<INotebooksRepository, NotebooksService>();
-            services.AddSingleton<DataContext, DataContext>();
+            services.AddSingleton<DataProvider, DataProvider>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseMiddleware<OnlySupportChrome>();
             app.UseStatusCodePages();
             app.UseDeveloperExceptionPage();
             app.UseHttpsRedirection();
