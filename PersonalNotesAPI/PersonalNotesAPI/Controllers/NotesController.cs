@@ -12,9 +12,11 @@ namespace PersonalNotesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[AutoValidateAntiforgeryToken]
     public class NotesController : ControllerBase
     {
         private readonly INotesService _notesService;
+        
         public NotesController(INotesService notesService)
         {
 
@@ -23,6 +25,7 @@ namespace PersonalNotesAPI.Controllers
 
         #region snippet_GetAll
         [HttpGet]
+        [Browser]
         public IEnumerable<Note> GetAll()
         {
             return _notesService.GetList();
@@ -43,8 +46,14 @@ namespace PersonalNotesAPI.Controllers
         #endregion
         #region snippet_Create
         [HttpPost]
+        [Browser]
         public IActionResult Create([FromBody] Note item)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (item == null)
             {
                 return BadRequest();

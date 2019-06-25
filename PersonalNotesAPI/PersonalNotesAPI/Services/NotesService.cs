@@ -44,7 +44,7 @@ namespace PersonalNotesAPI.Services
         {
             return _db.Notes.SingleOrDefault(n => n.Id == Id);
         }
-
+        
         public Note Upate(NoteVM note)
         {
             Note updatedNote = _db.Notes.SingleOrDefault(n => n.Id == note.Id);

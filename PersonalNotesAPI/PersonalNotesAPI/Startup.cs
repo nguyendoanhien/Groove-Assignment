@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PersonalNotesAPI.Data;
 using PersonalNotesAPI.Mappings;
+using PersonalNotesAPI.MyMiddlewares;
 using PersonalNotesAPI.Services;
 
 namespace PersonalNotesAPI
@@ -36,15 +37,29 @@ namespace PersonalNotesAPI
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //
+            services.AddSingleton<UptimeService>();
+
+            services.AddMvc()/*(options =>
+            {
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+
+
+            })*/.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddScoped<INotesService, NotesService>();
             services.AddScoped<INotebooksService, NotebooksService>();
             services.AddSingleton<DataStorage, DataStorage>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseMiddleware<OnlyChromeMiddleware>();
+            app.UseMiddleware<ShortCircuitMiddleware>();
+            app.UseMiddleware<ContentMiddleware>();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

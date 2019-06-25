@@ -5,15 +5,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PersonalNotesAPI.Models;
+using PersonalNotesAPI.Services;
 
 namespace PersonalNotesAPI.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private UptimeService uptime;
+        public HomeController(UptimeService up) => uptime = up;
+        public IActionResult Index() => View(new Dictionary<string, string>
         {
-            return View();
-        }
+            ["Message"] = "This is the Index action",
+            ["Uptime"] = $"{uptime.Uptime}ms"
+        });
+        //{
+        //    return View();
+        //}
+       
+
 
         public IActionResult Privacy()
         {
