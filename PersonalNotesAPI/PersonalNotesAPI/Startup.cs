@@ -37,6 +37,7 @@ namespace PersonalNotesAPI
             services.AddScoped<INotesRepository, NotesService>();
             services.AddScoped<INotebooksRepository, NotebooksService>();
             services.AddSingleton<DataProvider, DataProvider>();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

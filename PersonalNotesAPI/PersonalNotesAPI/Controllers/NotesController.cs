@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PersonalNotesAPI.Filters;
 using PersonalNotesAPI.Models;
 using PersonalNotesAPI.Service;
 
@@ -35,6 +36,7 @@ namespace PersonalNotesAPI.Controllers
 
         // POST: api/Notes
         [HttpPost]
+        [VersonFilter]
         public Note Post([FromBody] Note value)
         {
             _notesRepository.AddNote(value);

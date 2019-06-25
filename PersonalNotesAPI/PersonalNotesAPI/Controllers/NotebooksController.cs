@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PersonalNotesAPI.Filters;
 using PersonalNotesAPI.Models;
 using PersonalNotesAPI.Service;
 
@@ -35,7 +36,7 @@ namespace PersonalNotesAPI.Controllers
             return _notebooksRepository[id];
         }
 
-        // POST: api/Notebooks
+        // POST: api/Notebooks]
         [HttpPost]
         public Notebook Post([FromBody] Notebook value)
         {

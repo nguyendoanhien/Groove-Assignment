@@ -21,7 +21,7 @@ namespace PersonalNotesAPI.Middleware
         public async Task Invoke(HttpContext httpContext)
         {
             if (httpContext.Request.Headers["User-Agent"]
-            .Any(h => h.ToLower().Contains("Chrome")))
+            .Any(h => h.ToLower().Contains("chrome")))
             {
                 await _next.Invoke(httpContext);
             }
