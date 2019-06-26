@@ -1,4 +1,5 @@
 ﻿using PersonalNotesAPI.Data;
+using PersonalNotesAPI.Models;
 using PersonalNotesAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -16,20 +17,30 @@ namespace PersonalNotesAPI.CustomAttributes
         //{
         //    _notebooksService = notebooksService;
         //}
+        //public string OtherProperty { get; set; }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            //var otherProperty = validationContext.ObjectType.GetProperty(OtherProperty);
+            INotesService db = (INotesService)validationContext.GetService(typeof(INotesService));
+           
             if (value is int)
             {
-                INotesService db = (INotesService)validationContext.GetService(typeof(INotesService));
+
                 if (db.GetSingleById((int)value) != null)
                 {
                     return ValidationResult.Success;
                 }
+                else return new ValidationResult("noteBookId không tồn lại");
 
 
             }
-            return new ValidationResult("noteBookId không tồ lại");
+
+            return ValidationResult.Success;
+       
+
+
+
         }
     }
 }

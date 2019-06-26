@@ -1,4 +1,5 @@
-﻿using PersonalNotesAPI.CustomAttributes;
+﻿using Microsoft.AspNetCore.Mvc;
+using PersonalNotesAPI.CustomAttributes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,7 @@ namespace PersonalNotesAPI.Models
         public int Id { get; set; }
         [Required]
         [StringLength(50)]
+     
         public string Title { get; set; }
 
 

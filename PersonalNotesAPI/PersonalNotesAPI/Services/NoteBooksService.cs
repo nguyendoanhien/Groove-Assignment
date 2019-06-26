@@ -1,5 +1,6 @@
 ﻿using PersonalNotesAPI.Data;
 using PersonalNotesAPI.Models;
+using PersonalNotesAPI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,9 +44,11 @@ namespace PersonalNotesAPI.Services
             return _db.Notebooks.SingleOrDefault(n => n.Id == Id);
         }
 
-        public Notebook Upate(Notebook Notebook)
+        public Notebook Upate(NotebookVM Notebook)
         {
             throw new NotImplementedException();
         }
+
+  
     }
 }

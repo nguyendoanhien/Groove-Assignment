@@ -13,7 +13,7 @@ namespace PersonalNotesAPI.Controllers
     [Route("api/[controller]")]
     [ApiController]
     //[AutoValidateAntiforgeryToken]
-    public class NotesController : ControllerBase
+    public class NotesController : Controller
     {
         private readonly INotesService _notesService;
         
@@ -106,5 +106,8 @@ namespace PersonalNotesAPI.Controllers
         }
         #endregion
 
+        #region More
+   
+        #endregion
     }
 }

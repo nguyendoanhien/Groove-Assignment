@@ -15,9 +15,9 @@ namespace PersonalNotesAPI.Services
         {
             _contextAccessor = context;
             int chromeVersion = CheckChromeVersion();
-            if (chromeVersion >= 70) base.OnActionExecuting(context);
+            if (chromeVersion >= 70)  base.OnActionExecuting(context);
             else
-                context.Result = new EmptyResult();
+                context.Result =new OkObjectResult("Ko hop le");
 
         }
         public int CheckChromeVersion()
