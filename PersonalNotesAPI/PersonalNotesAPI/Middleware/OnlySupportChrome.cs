@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Primitives;
 
 namespace PersonalNotesAPI.Middleware
 {
@@ -12,7 +15,7 @@ namespace PersonalNotesAPI.Middleware
     public class OnlySupportChrome
     {
         private readonly RequestDelegate _next;
-
+        public string UserHostName;
         public OnlySupportChrome(RequestDelegate next)
         {
             _next = next;
@@ -20,6 +23,8 @@ namespace PersonalNotesAPI.Middleware
 
         public async Task Invoke(HttpContext httpContext)
         {
+            //UserHostName = httpContext.Request.Host.ToString();
+            //HttpRequest httpRequest = new HttpRequest();
             if (httpContext.Request.Headers["User-Agent"]
             .Any(h => h.ToLower().Contains("chrome")))
             {
