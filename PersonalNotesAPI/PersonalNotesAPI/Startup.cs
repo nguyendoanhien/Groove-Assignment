@@ -1,30 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PersonalNotesAPI.Data;
-using PersonalNotesAPI.Mappings;
-using PersonalNotesAPI.MyMiddlewares;
-using PersonalNotesAPI.Services;
+using PersonalNotesAPI.Configurations;
+using AutoMapper;
+using Microsoft.Extensions.Logging;
+using PersonalNotesAPI.Middlewares;
 
 namespace PersonalNotesAPI
 {
-    public class Startup
+    public partial class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
-            MappingConfiguration.Configure();
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
+
+            Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -36,52 +38,53 @@ namespace PersonalNotesAPI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
-            //
-            services.AddSingleton<UptimeService>();
-
-            services.AddMvc()/*(options =>
+            services.AddCors(options =>
             {
-                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                options.AddPolicy("AllowAll",
+                builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            })*/.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddScoped<INotesService, NotesService>();
-            services.AddScoped<INotebooksService, NotebooksService>();
-            services.AddSingleton<DataStorage, DataStorage>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            RegisterAuth(services);
+            RegisterIdentity(services);
+            RegisterAutoMapperProfiles(services);
 
+            DiConfiguration.Register(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseMiddleware<OnlyChromeMiddleware>();
-            app.UseMiddleware<ShortCircuitMiddleware>();
-            app.UseMiddleware<ContentMiddleware>();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
-                //app.UseStatusCodePagesWithRedirects("/Error/{0}");
-                app.UseExceptionHandler("/Error");
-                app.UseStatusCodePagesWithRedirects("/Error/{0}");
+                app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            app.UseCors("AllowAll");
+            app.UseAuthentication();
+
+            ConfigureLog(loggerFactory);
+
+            RegisterMiddlewares(app);
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                RegisterRouting(routes);
             });
         }
     }

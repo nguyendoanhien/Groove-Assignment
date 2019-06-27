@@ -5,24 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PersonalNotesAPI.Models;
-using PersonalNotesAPI.Services;
+using Microsoft.Extensions.Logging;
 
 namespace PersonalNotesAPI.Controllers
 {
     public class HomeController : Controller
     {
-        private UptimeService uptime;
-        public HomeController(UptimeService up) => uptime = up;
-        public IActionResult Index() => View(new Dictionary<string, string>
+        public HomeController(ILogger<HomeController> logger)
         {
-            ["Message"] = "This is the Index action",
-            ["Uptime"] = $"{uptime.Uptime}ms"
-        });
-        //{
-        //    return View();
-        //}
-       
-
+            logger.LogError("HomeController is created as new instance", typeof(HomeController));
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {
