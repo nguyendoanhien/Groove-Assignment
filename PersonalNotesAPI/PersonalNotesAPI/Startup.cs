@@ -17,7 +17,7 @@ using PersonalNotesAPI.Service;
 
 namespace PersonalNotesAPI
 {
-    public class Startup
+    public partial class Startup
     {
         public Startup(IConfiguration configuration)
         {
