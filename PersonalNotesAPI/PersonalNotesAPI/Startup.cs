@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PersonalNotesAPI.Data;
-using PersonalNotesAPI.Middleware;
+using PersonalNotesAPI.Middlewares;
 using PersonalNotesAPI.Models;
 using PersonalNotesAPI.Service;
 

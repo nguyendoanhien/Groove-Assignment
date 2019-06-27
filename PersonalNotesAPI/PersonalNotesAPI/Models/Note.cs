@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalNotesAPI.ModelValidation;
+using PersonalNotesAPI.DataValidation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

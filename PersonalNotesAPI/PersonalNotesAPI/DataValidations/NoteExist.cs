@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace PersonalNotesAPI.ModelValidation
+namespace PersonalNotesAPI.DataValidation
 {
     public class NoteExist : ValidationAttribute
     {

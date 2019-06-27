@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using PersonalNotesAPI.Service;
 using PersonalNotesAPI.Models;
 
-namespace PersonalNotesAPI.ModelValidation
+namespace PersonalNotesAPI.DataValidation
 {
     public class NotebookExist: ValidationAttribute
     {
