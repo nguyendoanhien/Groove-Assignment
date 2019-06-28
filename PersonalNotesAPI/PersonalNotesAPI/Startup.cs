@@ -49,7 +49,7 @@ namespace PersonalNotesAPI
             services.AddScoped<INotesService, NotesService>();
             services.AddScoped<INotebooksService, NotebooksService>();
             services.AddSingleton<DataStorage, DataStorage>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         }
 
@@ -58,7 +58,7 @@ namespace PersonalNotesAPI
         {
             app.UseMiddleware<OnlyChromeMiddleware>();
             app.UseMiddleware<ShortCircuitMiddleware>();
-            app.UseMiddleware<ContentMiddleware>();
+            //app.UseMiddleware<ContentMiddleware>();
 
             if (env.IsDevelopment())
             {
