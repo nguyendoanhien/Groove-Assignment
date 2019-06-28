@@ -1,5 +1,4 @@
-﻿using PersonalNotesAPI.Data;
-using PersonalNotesAPI.Models;
+﻿using PersonalNotesAPI.Models;
 using PersonalNotesAPI.Services;
 using System;
 using System.Collections.Generic;
@@ -27,7 +26,7 @@ namespace PersonalNotesAPI.CustomAttributes
             if (value is int)
             {
 
-                if (db.GetSingleById((int)value) != null)
+                if (db.GetNoteForEdit((int)value) != null)
                 {
                     return ValidationResult.Success;
                 }

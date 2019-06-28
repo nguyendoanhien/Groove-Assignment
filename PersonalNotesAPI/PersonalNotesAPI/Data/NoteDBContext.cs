@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using PersonalNotesAPI.Data;
 using PersonalNotesAPI.Models;
+using PersonalNotesAPI.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +17,8 @@ namespace PersonalNotesAPI.Models
         {
         }
 
-        public DbSet<Note> Notes { get; set; }
-        public DbSet<Notebook> Notebooks { get; set; }
+        public DbSet<NoteEntity> Notes { get; set; }
+ 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

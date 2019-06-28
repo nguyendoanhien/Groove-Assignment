@@ -1,113 +1,96 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
+using System.Net;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PersonalNotesAPI.Models;
+using PersonalNotesAPI.Models.Note;
 using PersonalNotesAPI.Services;
-using PersonalNotesAPI.ViewModels;
+using PersonalNotesAPI.Services.Interface;
 
 namespace PersonalNotesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     //[AutoValidateAntiforgeryToken]
     public class NotesController : Controller
     {
-        private readonly INotesService _notesService;
-        
-        public NotesController(INotesService notesService)
-        {
+        private readonly INotesService _noteService;
+        private readonly IUserResolverService _userResolverService;
 
-            _notesService = notesService;
+
+        public NotesController(INotesService noteService, IUserResolverService userResolverService)
+        {
+            _noteService = noteService;
+            _userResolverService = userResolverService;
         }
 
-        #region snippet_GetAll
-        [HttpGet]
-        [Browser]
-        public IEnumerable<Note> GetAll()
+        [HttpGet("")]
+        public IEnumerable<FullModel> GetNotes()
         {
-            return _notesService.GetList();
+            var result = _noteService.GetNoteListFullModel();
+            return result;
         }
 
-        #region snippet_GetByID
-        [HttpGet("{id}", Name = "Getnote")]
-        public IActionResult GetById(int id)
+        [HttpGet("{id}")]
+        public IActionResult GetNote(int id)
         {
-            var item = _notesService.GetSingleById(id);
-            if (item == null)
-            {
-                return NotFound();
-            }
-            return new ObjectResult(item);
+            var data = _noteService.GetNoteForEdit(id);
+            if (data != null && _userResolverService.CurrentUserName() == data.CreatedBy)
+                return Ok(data);
+            
+            return BadRequest("Ban ko co quyen");
         }
-        #endregion
-        #endregion
-        #region snippet_Create
-        [HttpPost]
-        [Browser]
-        public IActionResult Create([FromBody] Note item)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            if (item == null)
-            {
-                return BadRequest();
-            }
-
-            var newItem = _notesService.CreateNew(item);
-
-
-            return CreatedAtRoute("Getnote", new { id = newItem.Id }, newItem);
-        }
-        #endregion
-
-        #region snippet_Update
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody] NoteVM item)
+        public IActionResult EditNote(int id, [FromBody] EditModel note)
         {
-            if (item == null || item.Id != id)
+            if (id != note.Id)
             {
-                return BadRequest();
+                return null;
             }
 
-            var note = _notesService.GetSingleById(id);
-            if (note == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                var isExisting = _noteService.CheckExisting(id);
+                if (!isExisting)
+                {
+                    return null;
+                }
+
+                _noteService.EditNote(note);
+                 return Ok(note);
             }
 
-            //note.IsComplete = item.IsComplete;
-            //note.Name = item.Name;
-
-            _notesService.Upate(item);
-
-            return new NoContentResult();
+            return BadRequest("Loi");
         }
-        #endregion
 
-        #region snippet_Delete
+        [HttpPost]
+        public IActionResult CreateNote([FromBody] CreateModel note)
+        {
+            if (ModelState.IsValid)
+            {
+                _noteService.AddNote(note);
+            }
+            else
+            {
+                return new BadRequestResult();
+            }
+
+            return Ok();
+        }
+
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteNote(int id)
         {
-            var note = _notesService.GetSingleById(id);
-            if (note == null)
+            var isExisting = _noteService.CheckExisting(id);
+            if (!isExisting)
             {
-                return NotFound();
+                return new NotFoundResult();
             }
 
-            _notesService.Delete(id);
-
-            return new NoContentResult();
+            _noteService.DeleteNote(id);
+            return Ok();
         }
-        #endregion
-
-        #region More
-   
-        #endregion
     }
 }

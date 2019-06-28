@@ -9,19 +9,24 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using PersonalNotesAPI.Models;
+using PersonalNotesAPI.Auth;
+using Microsoft.Extensions.Configuration;
 
 namespace PersonalNotesAPI.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IConfiguration _config;
         private readonly ILogger<LoginModel> _logger;
-
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IConfiguration config)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _config = config;
         }
 
         [BindProperty]
@@ -76,8 +81,11 @@ namespace PersonalNotesAPI.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
+                    //_logger.LogInformation("User logged in.");
+                    //return LocalRedirect(returnUrl);
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    var tokenString = AuthTokenUtil.GetJwtTokenString(Input.Email, _config);
+                    return new ObjectResult(tokenString);
                 }
                 if (result.RequiresTwoFactor)
                 {

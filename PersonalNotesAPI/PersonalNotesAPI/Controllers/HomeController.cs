@@ -6,17 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PersonalNotesAPI.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Identity;
 
 namespace PersonalNotesAPI.Controllers
 {
+
     public class HomeController : Controller
     {
-        public HomeController(ILogger<HomeController> logger)
+        private readonly SignInManager<ApplicationUser> _signInManager;
+      
+        public HomeController(SignInManager<ApplicationUser> signInManager)
         {
-            logger.LogError("HomeController is created as new instance", typeof(HomeController));
+            _signInManager = signInManager;
         }
         public IActionResult Index()
         {
+            //if (!_signInManager.IsSignedIn(User))
+            //    RedirectToPage()
+
             return View();
         }
 

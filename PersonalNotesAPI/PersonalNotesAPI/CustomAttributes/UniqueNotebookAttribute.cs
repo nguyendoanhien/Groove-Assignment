@@ -19,7 +19,7 @@ namespace PersonalNotesAPI.CustomAttributes
             var otherProperty = validationContext.ObjectType.GetProperty("Id");
             var otherPropertyValue = otherProperty.GetValue(validationContext.ObjectInstance, null);
 
-            if (!otherPropertyValue.Equals(value) &&  db.GetSingleById((int)otherPropertyValue) != null)
+            if (!otherPropertyValue.Equals(value) &&  db.GetNoteForEdit((int)otherPropertyValue) != null)
             {
                 return ValidationResult.Success;
             }

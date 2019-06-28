@@ -11,12 +11,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PersonalNotesAPI.Data;
-using PersonalNotesAPI.Middlewares;
 using PersonalNotesAPI.Models;
+using PersonalNotesAPI.Middlewares;
 using PersonalNotesAPI.Repositories;
 using PersonalNotesAPI.Repositories.Interface;
 using PersonalNotesAPI.Services;
+using PersonalNotesAPI.Configurations;
 
 namespace PersonalNotesAPI
 {
@@ -48,12 +48,16 @@ namespace PersonalNotesAPI
                            .AllowAnyMethod();
                 });
             });
-            services.AddDbContext<NoteDBContext>(option => option.UseSqlServer(Configuration.GetConnectionString("NoteDBConnection")));
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<NoteDBContext>()
-                .AddDefaultTokenProviders();
-            services.AddScoped<INotesService, NotesService>();
-            services.AddScoped<INotebooksService, NotebooksService>();
+            //services.AddDbContext<NoteDBContext>(option => option.UseSqlServer(Configuration.GetConnectionString("NoteDBConnection")));
+            //services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<NoteDBContext>()
+            //    .AddDefaultTokenProviders();
+            RegisterAuth(services);
+            RegisterIdentity(services);
+            RegisterAutoMapperProfiles(services);
+            //services.AddScoped<INotesService, NotesService>();
+            //services.AddScoped<INotebooksService, NotebooksService>();
+            DiConfiguration.Register(services);
             //services.AddSingleton<DataProvider, DataProvider>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

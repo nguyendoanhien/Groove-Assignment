@@ -1,5 +1,5 @@
 ﻿using PersonalNotesAPI.Models;
-using PersonalNotesAPI.Data;
+using PersonalNotesAPI.Models;
 using PersonalNotesAPI.Models;
 using PersonalNotesAPI.ViewModels;
 using System;

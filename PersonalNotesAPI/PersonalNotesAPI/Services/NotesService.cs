@@ -1,65 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using PersonalNotesAPI.Models;
 using AutoMapper;
-using PersonalNotesAPI.Data;
-using PersonalNotesAPI.Models;
-using PersonalNotesAPI.ViewModels;
+using PersonalNotesAPI.Repositories.Interface;
+using PersonalNotesAPI.Models.Note;
+using PersonalNotesAPI.Entities;
+using PersonalNotesAPI.Uow.Interface;
 
 namespace PersonalNotesAPI.Services
 {
     public class NotesService : INotesService
     {
-
-        private NoteDBContext _db;
+        private INoteRepository _noteRepository;
         private IMapper _mapper;
+        private IUowBase<NoteDBContext> _uow;
 
-        public NotesService(NoteDBContext db,IMapper mapper)
+        public NotesService(
+            INoteRepository notesRepo,
+            IUowBase<NoteDBContext> uow,
+            IMapper mapper
+            )
         {
-            _db = db;
-            _mapper = mapper;
-
-
+            this._noteRepository = notesRepo;
+            this._uow = uow;
+            this._mapper = mapper;
         }
 
-
-        public Note CreateNew(Note note)
+        public IEnumerable<IndexModel> GetNoteList()
         {
-            note.Id = _db.Notes.Max(n => n.Id) + 1;
-            _db.Notes.Add(note);
-            return note;
+            var storedData = _noteRepository.GetAll();
+            var result = _mapper.Map<IEnumerable<NoteEntity>, IEnumerable<IndexModel>>(storedData);
+            return result;
         }
 
-        public Note Delete(int Id)
+        public IEnumerable<FullModel> GetNoteListFullModel()
         {
-            var note = _db.Notes.SingleOrDefault(n => n.Id == Id);
-            if (note != null)
-                _db.Notes.Remove(note);
-            return note;
+            var storedData = _noteRepository.GetAll();
+            var result = _mapper.Map<IEnumerable<NoteEntity>, IEnumerable<FullModel>>(storedData);
+            return result;
         }
 
-        public IEnumerable<Note> GetList()
+        public void AddNote(CreateModel note)
         {
-            return _db.Notes;
+          
+            var entity = _mapper.Map<CreateModel, NoteEntity>(note);
+
+            _noteRepository.Add(entity);
+            _uow.SaveChanges();
         }
 
-        public Note GetSingleById(int Id)
+        public EditModel GetNoteForEdit(int id)
         {
-            return _db.Notes.SingleOrDefault(n => n.Id == Id);
+            var storedData = _noteRepository.GetSingle(id);
+            var result = _mapper.Map<NoteEntity, EditModel>(storedData);
+            return result;
         }
 
-        public Note Upate(NoteVM note)
+        public void EditNote(EditModel data)
         {
-            //var storedData = _noteRepository.GetSingle(data.Id);
-            //storedData.Title = data.Title;
-            //storedData.Description = data.Description;
-            //storedData.Timestamp = data.Timestamp;
-            //_noteRepository.Edit(storedData);
-            //_uow.SaveChanges();
-            //return storedData;
-            return null;
+            var storedData = _noteRepository.GetSingle(data.Id);
+            storedData.Title = data.Title;
+            storedData.Description = data.Description;
+            storedData.Timestamp = data.Timestamp;
+            _noteRepository.Edit(storedData);
+            _uow.SaveChanges();
+        }
+
+        public bool CheckExisting(int id)
+        {
+            var result = _noteRepository.CheckExistingById(id);
+            return result;
+        }
+
+        public void DeleteNote(int id)
+        {
+            var storedData = _noteRepository.GetSingle(id);
+            storedData.Deleted = true;
+            _noteRepository.Edit(storedData);
+            _uow.SaveChanges();
         }
     }
 }

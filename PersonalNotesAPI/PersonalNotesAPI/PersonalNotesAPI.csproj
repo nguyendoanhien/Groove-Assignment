@@ -6,7 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewModels\**" />
+    <Content Remove="ViewModels\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\NotebooksController.cs" />
     <Compile Remove="Data\DataStorage.cs" />
+    <Compile Remove="Middlewares\ContentMiddleware.cs" />
+    <Compile Remove="Models\Note.cs" />
+    <Compile Remove="Models\NoteBook.cs" />
+    <Compile Remove="Repositories\Interface\INotebooksRepository.cs" />
+    <Compile Remove="Services\Interface\INoteBooksService.cs" />
+    <Compile Remove="Services\NoteBooksService.cs" />
   </ItemGroup>
 
 
