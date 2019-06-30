@@ -1,12 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PersonalNotesAPI.DataValidation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PersonalNotesAPI.Models
+namespace PersonalNotesAPI.Models.Note
 {
     public class Note
     {
@@ -21,7 +20,7 @@ namespace PersonalNotesAPI.Models
 
         public bool Finished { get; set; }
 
-        [NoteExist]
+       // [NoteExist]
         public int NotebookId { get; set; }
 
         [Required(ErrorMessage = "CreatedBy is required")]

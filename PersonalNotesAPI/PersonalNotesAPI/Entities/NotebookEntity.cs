@@ -1,4 +1,4 @@
-﻿using PersonalNotesAPI.DataValidation;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,7 +15,7 @@ namespace PersonalNotesAPI.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
-        [NotebookExist]
+        //[NotebookExist]
         public int? ParentId { get; set; }
 
         [Required(ErrorMessage = "CreatedBy is required")]

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using PersonalNotesAPI.Data;
 using PersonalNotesAPI.Middlewares;
 using PersonalNotesAPI.Models;
-using PersonalNotesAPI.Service;
+using PersonalNotesAPI.Repositories;
+using PersonalNotesAPI.Repositories.Interface;
+using PersonalNotesAPI.Services;
+using PersonalNotesAPI.Services.Interface;
 
 namespace PersonalNotesAPI
 {
@@ -35,11 +33,14 @@ namespace PersonalNotesAPI
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddDbContextPool<NoteDBContext>(option => option.UseSqlServer(Configuration.GetConnectionString("NoteDBConnection")));
-            services.AddScoped<INotesRepository, NotesService>();
-            services.AddScoped<INotebooksRepository, NotebooksService>();
-            services.AddSingleton<DataProvider, DataProvider>();
             
+            services.AddScoped<INoteRepository, NoteRepository>();
+            services.AddScoped<INoteService, NoteService>();
+            services.AddSingleton<IUserResolverRepository, UserResolverService>();
+            RegisterAuth(services);
+            RegisterIdentity(services);
+            RegisterAutoMapperProfiles(services);
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -54,14 +55,20 @@ namespace PersonalNotesAPI
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseAuthentication();
             app.UseMiddleware<OnlySupportChrome>();
             app.UseStatusCodePages();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseMvcWithDefaultRoute();
             app.UseAuthentication();
-
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }
