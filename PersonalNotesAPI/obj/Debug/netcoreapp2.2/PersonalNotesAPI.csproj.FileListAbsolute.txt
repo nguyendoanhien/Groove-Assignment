@@ -28,3 +28,12 @@ C:\Users\intern02\source\repos\PersonalNotesAPI\PersonalNotesAPI\obj\Debug\netco
 C:\Users\intern02\source\repos\PersonalNotesAPI\PersonalNotesAPI\obj\Debug\netcoreapp2.2\PersonalNotesAPI.dll
 C:\Users\intern02\source\repos\PersonalNotesAPI\PersonalNotesAPI\obj\Debug\netcoreapp2.2\PersonalNotesAPI.pdb
 C:\Users\intern02\source\repos\PersonalNotesAPI\PersonalNotesAPI\obj\Debug\netcoreapp2.2\PersonalNotesAPI.csproj.CopyComplete
+C:\Users\intern02\source\repos\PersonalNotesAPI\PersonalNotesAPI\obj\Debug\netcoreapp2.2\Razor\Views\Home\Detail.g.cshtml.cs
+C:\Users\intern02\Downloads\PersonalNotesAPI\obj\Debug\netcoreapp2.2\PersonalNotesAPI.csprojAssemblyReference.cache
+C:\Users\intern02\Downloads\PersonalNotesAPI\obj\Debug\netcoreapp2.2\PersonalNotesAPI.csproj.CoreCompileInputs.cache
+C:\Users\intern02\Downloads\PersonalNotesAPI\obj\Debug\netcoreapp2.2\PersonalNotesAPI.RazorAssemblyInfo.cache
+C:\Users\intern02\Downloads\PersonalNotesAPI\obj\Debug\netcoreapp2.2\PersonalNotesAPI.RazorAssemblyInfo.cs
+C:\Users\intern02\Downloads\PersonalNotesAPI\obj\Debug\netcoreapp2.2\PersonalNotesAPI.AssemblyInfoInputs.cache
+C:\Users\intern02\Downloads\PersonalNotesAPI\obj\Debug\netcoreapp2.2\PersonalNotesAPI.AssemblyInfo.cs
+C:\Users\intern02\Downloads\PersonalNotesAPI\obj\Debug\netcoreapp2.2\PersonalNotesAPI.dll
+C:\Users\intern02\Downloads\PersonalNotesAPI\obj\Debug\netcoreapp2.2\PersonalNotesAPI.pdb

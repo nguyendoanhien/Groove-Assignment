@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PersonalNotesAPI.Middleware;
+using PersonalNotesAPI.Models;
+using PersonalNotesAPI.Models.Service;
 
 namespace PersonalNotesAPI
 {
@@ -31,6 +34,12 @@ namespace PersonalNotesAPI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddScoped<INotesBookRepository, NotebooksService>();
+            services.AddScoped<INotesRepository, NotesService>();
+            services.AddSingleton<DataProvider, DataProvider>();
+
+
+             services.AddScoped<VersionFilter>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -49,16 +58,17 @@ namespace PersonalNotesAPI
                 app.UseHsts();
             }
 
+            app.UseMiddleware<MiddlewareChrome>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvcWithDefaultRoute();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }
