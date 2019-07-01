@@ -15,7 +15,7 @@ namespace PersonalNotesAPI.Model.Models
         [Required]
         public string Name { get; set; }
         public int? ParentId { get; set; }
-        public bool Deleted { get; set; }
+        
         [Timestamp]
         public byte[] Timestamp { get; set; }
 

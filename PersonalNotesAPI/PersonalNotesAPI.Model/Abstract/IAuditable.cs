@@ -10,5 +10,6 @@ namespace PersonalNotesAPI.Model.Abstracts
         DateTime CreatedOn { get; set; }
         string UpdatedBy { get; set; }
         DateTime? UpdatedOn { get; set; }
+        bool Deleted { get; set; }
     }
 }

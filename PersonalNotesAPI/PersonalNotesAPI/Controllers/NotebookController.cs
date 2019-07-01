@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalNotes.Service;
 using PersonalNotesAPI.Extensions;
@@ -14,6 +16,7 @@ namespace PersonalNotesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class NotebookController : ControllerBase
     {
         INotebookService _notebookService;
@@ -24,6 +27,7 @@ namespace PersonalNotesAPI.Controllers
             this._noteService = _noteService;
         }
         // GET: api/Todo
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult<IEnumerable<NotebookVM>> GetTodoItems()
         {
@@ -51,8 +55,6 @@ namespace PersonalNotesAPI.Controllers
             {
                 Notebook newNotebook = new Notebook();
                 newNotebook.UpdateNotebook(data);
-                newNotebook.CreatedOn = DateTime.Now;
-                newNotebook.Deleted = false;
                 _notebookService.Add(newNotebook);
                 _notebookService.Save();
                 return Mapper.Map<NotebookVM>(newNotebook);

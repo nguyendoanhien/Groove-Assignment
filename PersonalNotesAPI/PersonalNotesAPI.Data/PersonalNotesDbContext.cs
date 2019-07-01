@@ -1,11 +1,12 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PersonalNotesAPI.Model.Models;
 
 namespace PersonalNotesAPI.Data
 {
-    public class PersonalNotesDbContext : DbContext
+    public class PersonalNotesDbContext : IdentityDbContext<ApplicationUser>
     {
-        public PersonalNotesDbContext(DbContextOptions options): base(options)
+        public PersonalNotesDbContext(DbContextOptions<PersonalNotesDbContext> options): base(options)
         {
 
         } 

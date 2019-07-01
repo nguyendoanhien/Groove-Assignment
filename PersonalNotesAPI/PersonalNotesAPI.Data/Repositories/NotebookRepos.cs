@@ -9,7 +9,7 @@ namespace PersonalNotesAPI.Data.Repositories
 
     public class NotebookRepos : RepositoryBase<Notebook>, INotebookRepos
     {
-        public NotebookRepos(PersonalNotesDbContext dbContext) : base(dbContext)
+        public NotebookRepos(PersonalNotesDbContext dbContext, IUserResolverService userResolverService) : base(dbContext, userResolverService)
         {
 
         }

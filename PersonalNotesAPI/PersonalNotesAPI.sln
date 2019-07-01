@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalNotesAPI.Data", "Pe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalNotesAPI.Service", "PersonalNotes.Service\PersonalNotesAPI.Service.csproj", "{58EDC7D7-BF1D-40DE-8262-FC190DDE281F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalNotesAPI.UnitTest", "PersonalNotesAPI.UnitTest\PersonalNotesAPI.UnitTest.csproj", "{F3A53C37-68F5-48A1-86D6-EC1C1D09DD2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{58EDC7D7-BF1D-40DE-8262-FC190DDE281F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58EDC7D7-BF1D-40DE-8262-FC190DDE281F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58EDC7D7-BF1D-40DE-8262-FC190DDE281F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3A53C37-68F5-48A1-86D6-EC1C1D09DD2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3A53C37-68F5-48A1-86D6-EC1C1D09DD2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3A53C37-68F5-48A1-86D6-EC1C1D09DD2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3A53C37-68F5-48A1-86D6-EC1C1D09DD2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

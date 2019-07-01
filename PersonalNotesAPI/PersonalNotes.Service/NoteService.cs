@@ -15,7 +15,6 @@ namespace PersonalNotes.Service
 
         void Delete(int id);
 
-        void DeleteMulti(int idNotbook);
 
         IEnumerable<Note> GetAll();
 
@@ -49,13 +48,11 @@ namespace PersonalNotes.Service
             note.Deleted = true;
             _noteRepos.Update(note);
         }
-        public void DeleteMulti(int idNotebook)
-        {
-            _noteRepos.DeleteMulti(x=>x.NotebookId == idNotebook);
-        }
+       
         public IEnumerable<Note> GetAll()
         {
-            return _noteRepos.GetMulti(x => x.Deleted == false);
+            //return _noteRepos.GetMulti(x => x.Deleted == false);
+            return _noteRepos.GetAll();
         }
 
         public Note GetById(int id)

@@ -12,7 +12,7 @@ namespace PersonalNotesAPI.Data.Repositories
     }
     public class NoteRepos : RepositoryBase<Note>, INoteRepos
     {
-        public NoteRepos(PersonalNotesDbContext dbContext) : base(dbContext)
+        public NoteRepos(PersonalNotesDbContext dbContext, IUserResolverService userResolverService) : base(dbContext,userResolverService)
         {
 
         }

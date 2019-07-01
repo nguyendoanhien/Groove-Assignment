@@ -11,13 +11,16 @@ namespace PersonalNotesAPI.Model.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(255)]
+        [MaxLength(50)]
         public string Title { get; set; }
 
+        [Required]
         public string Description { get; set; }
+
         public bool Finished { get; set; }
+
         public int NotebookId { get; set; }
-        public bool Deleted { get; set; }
+
         [Timestamp]
         public byte[] Timestamp { get; set; }
 

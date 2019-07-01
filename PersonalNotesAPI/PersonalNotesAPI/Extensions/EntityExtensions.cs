@@ -14,9 +14,6 @@ namespace PersonalNotesAPI.Extensions
             notebook.Name = notebookVM.Name;
             notebook.ParentId = notebookVM.ParentId;
             notebook.Timestamp = notebookVM.Timestamp;
-            notebook.UpdatedBy = notebookVM.UpdatedBy;
-            notebook.CreatedBy = notebook.CreatedBy;
-            notebook.Deleted = notebookVM.Deleted;
         }
         public static void UpdateNote(this Note note, NoteVM noteVM)
         {
@@ -25,10 +22,6 @@ namespace PersonalNotesAPI.Extensions
             note.Finished = noteVM.Finished;
             note.Timestamp = noteVM.Timestamp;
             note.NotebookId = noteVM.NotebookId;
-
-            note.UpdatedBy = noteVM.UpdatedBy;
-            note.CreatedBy = note.CreatedBy;
-            note.Deleted = noteVM.Deleted;
         }
     }
 }

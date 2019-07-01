@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalNotes.Service;
 using PersonalNotesAPI.Extensions;
@@ -12,6 +12,7 @@ using PersonalNotesAPI.Models;
 
 namespace PersonalNotesAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class NoteController : ControllerBase
@@ -23,6 +24,7 @@ namespace PersonalNotesAPI.Controllers
         }
         // GET: api/Todo
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult<IEnumerable<NoteVM>> GetTodoItems()
         {
             var listNote = _noteService.GetAll();
@@ -33,11 +35,13 @@ namespace PersonalNotesAPI.Controllers
         [HttpGet("{id}")]
         public ActionResult<NoteVM> Get(int id)
         {
+            //var identity = HttpContext.User.Identity as ClaimsPrincipal;
+            //var username = identity.Claims.FirstOrDefault(x=>x.)
             var note = _noteService.GetById(id);
             return Mapper.Map<NoteVM>(note);
         }
-
         // POST api/<controller>
+        //[VersionFilter]
         [HttpPost]
         public ActionResult<NoteVM> Post([FromBody]NoteVM data)
         {
@@ -49,8 +53,6 @@ namespace PersonalNotesAPI.Controllers
             {
                 Note newNote = new Note();
                 newNote.UpdateNote(data);
-                newNote.CreatedOn = DateTime.Now;
-                newNote.Deleted = false;
                 _noteService.Add(newNote);
                 _noteService.Save();
                 return Mapper.Map<NoteVM>(newNote);
@@ -66,7 +68,6 @@ namespace PersonalNotesAPI.Controllers
 
             var note = _noteService.GetById(id);
             note.UpdateNote(data);
-            note.UpdatedOn = DateTime.Now;
             _noteService.Update(note);
             _noteService.Save();
 
