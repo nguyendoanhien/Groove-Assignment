@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonalNotes.Service;
 using PersonalNotesAPI.Extensions;
+using PersonalNotesAPI.Filters;
 using PersonalNotesAPI.Model.Models;
 using PersonalNotesAPI.Models;
 
@@ -12,7 +14,7 @@ using PersonalNotesAPI.Models;
 
 namespace PersonalNotesAPI.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
     public class NoteController : ControllerBase
@@ -24,7 +26,6 @@ namespace PersonalNotesAPI.Controllers
         }
         // GET: api/Todo
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public ActionResult<IEnumerable<NoteVM>> GetTodoItems()
         {
             var listNote = _noteService.GetAll();
@@ -35,13 +36,11 @@ namespace PersonalNotesAPI.Controllers
         [HttpGet("{id}")]
         public ActionResult<NoteVM> Get(int id)
         {
-            //var identity = HttpContext.User.Identity as ClaimsPrincipal;
-            //var username = identity.Claims.FirstOrDefault(x=>x.)
             var note = _noteService.GetById(id);
             return Mapper.Map<NoteVM>(note);
         }
         // POST api/<controller>
-        //[VersionFilter]
+        [VersionFilter]
         [HttpPost]
         public ActionResult<NoteVM> Post([FromBody]NoteVM data)
         {

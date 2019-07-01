@@ -13,6 +13,7 @@ using PersonalNotesAPI.Data;
 using PersonalNotesAPI.Data.Infrastructure;
 using PersonalNotesAPI.Data.Repositories;
 using PersonalNotesAPI.Mappings;
+using PersonalNotesAPI.Middlewares;
 using System;
 using System.Reflection;
 using System.Text;
@@ -96,7 +97,7 @@ namespace PersonalNotesAPI
 
             //SeedDatabase.CreateUserRoleAsync(services).Wait();
 
-            //app.UseMiddleware<CheckBrowserMiddleware>();
+            app.UseMiddleware<CheckBrowserMiddleware>();
 
             app.UseCors(options => options.AllowAnyOrigin());
             app.UseAuthentication();

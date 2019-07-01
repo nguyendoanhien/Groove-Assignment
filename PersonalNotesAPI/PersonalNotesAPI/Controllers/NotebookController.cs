@@ -14,9 +14,9 @@ using PersonalNotesAPI.Models;
 
 namespace PersonalNotesAPI.Controllers
 {
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class NotebookController : ControllerBase
     {
         INotebookService _notebookService;
@@ -27,7 +27,7 @@ namespace PersonalNotesAPI.Controllers
             this._noteService = _noteService;
         }
         // GET: api/Todo
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult<IEnumerable<NotebookVM>> GetTodoItems()
         {
