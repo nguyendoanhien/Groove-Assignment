@@ -45,6 +45,12 @@ namespace PersonalNotesAPI.Controllers
         [HttpPut("{id}")]
         public IActionResult EditNote(int id, [FromBody] EditModel note)
         {
+
+
+            var data = _noteService.GetNoteForEdit(id);
+            if (data == null || _userResolverService.CurrentUserName() != data.CreatedBy)
+                return BadRequest("Ban ko co quyen");
+
             if (id != note.Id)
             {
                 return null;
@@ -83,6 +89,9 @@ namespace PersonalNotesAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteNote(int id)
         {
+            var data = _noteService.GetNoteForEdit(id);
+            if (data == null || _userResolverService.CurrentUserName() != data.CreatedBy)
+                return BadRequest("Ban ko co quyen");
             var isExisting = _noteService.CheckExisting(id);
             if (!isExisting)
             {
