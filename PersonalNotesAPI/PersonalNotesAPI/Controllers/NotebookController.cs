@@ -27,7 +27,7 @@ namespace PersonalNotesAPI.Controllers
             this._noteService = _noteService;
         }
         // GET: api/Todo
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public ActionResult<IEnumerable<NotebookVM>> GetTodoItems()
         {
