@@ -30,7 +30,15 @@ namespace PersonalNotesAPI.Service
             _db.notebooks.Remove(note);
         }
 
-        public Notebook UpdateNotebook(Notebook notebook) => AddNotebook(notebook);
+        public Notebook UpdateNotebook(Notebook notebook)
+        {
+            Notebook a = Notebooks.FirstOrDefault(x => x.Id == notebook.Id);
+            a.Name = notebook.Name;
+            a.ParentId = notebook.ParentId;
+            a.UpdatedBy = "A";
+            a.UpdatedOn = DateTime.Now;
+            return a;
+        }
 
         public bool IsExistNotebook(int id)
         {

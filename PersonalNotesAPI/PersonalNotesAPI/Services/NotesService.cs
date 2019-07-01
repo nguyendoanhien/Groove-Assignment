@@ -32,7 +32,16 @@ namespace PersonalNotesAPI.Service
             return note;
         }
 
-        public Note UpdateNote(Note note) => AddNote(note);
+        public Note UpdateNote(Note note)
+        {
+            Note a = Notes.FirstOrDefault(x => x.Id == note.Id);
+            a.Title = note.Title;
+            a.NotebookId = note.NotebookId;
+            a.UpdatedBy = "A";
+            a.UpdatedOn = DateTime.Now;
+            a.Description = note.Description;
+            return a;
+        }
         
     }
 }
