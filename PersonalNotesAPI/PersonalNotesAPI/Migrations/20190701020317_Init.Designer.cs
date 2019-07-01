@@ -10,7 +10,7 @@ using PersonalNotesAPI.Data;
 namespace PersonalNotesAPI.Migrations
 {
     [DbContext(typeof(NoteDBContext))]
-    [Migration("20190630022645_Init")]
+    [Migration("20190701020317_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
