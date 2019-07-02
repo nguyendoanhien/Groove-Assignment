@@ -38,16 +38,17 @@ namespace PersonalNotesAPI
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowAll",
-                builder =>
-                {
-                    builder.AllowAnyOrigin()
-                           .AllowAnyHeader()
-                           .AllowAnyMethod();
-                });
-            });
+            services.AddCors();
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowAll",
+            //    builder =>
+            //    {
+            //        builder.AllowAnyOrigin()
+            //               .AllowAnyHeader()
+            //               .AllowAnyMethod();
+            //    });
+            //});
             //services.AddDbContext<NoteDBContext>(option => option.UseSqlServer(Configuration.GetConnectionString("NoteDBConnection")));
             //services.AddIdentity<ApplicationUser, IdentityRole>()
             //    .AddEntityFrameworkStores<NoteDBContext>()
@@ -82,7 +83,9 @@ namespace PersonalNotesAPI
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-
+            app.UseCors(
+      options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
+  );
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

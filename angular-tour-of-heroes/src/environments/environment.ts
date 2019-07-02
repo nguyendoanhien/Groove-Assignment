@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  appName:"Note Client",
+  apiUrl: 'https://localhost:44364/api/notes',
+  authUrl : 'https://localhost:44383/Indentity/ClientAccount/login'
+
 };
 
 /*

@@ -29,8 +29,9 @@ namespace PersonalNotesAPI.Repositories
 
         public IQueryable<NoteEntity> GetAll()
         {
-            return Entity.AsNoTracking().Where(x => (x.Deleted == null || !x.Deleted.Value) &&
-                                                    x.CreatedBy == UserResolverService.CurrentUserName());
+            return Entity.AsNoTracking().Where(x => (x.Deleted == null || !x.Deleted.Value)
+            /*&&
+                                                    x.CreatedBy == UserResolverService.CurrentUserName()*/);
             //x.CreatedBy == UserResolverService.CurrentUserName());
         }
 
