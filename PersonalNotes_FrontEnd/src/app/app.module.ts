@@ -1,38 +1,42 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeroesComponent } from './heroes/heroes.component';
-import { HeroDetailComponent } from './hero-detail/hero-detail.component';
-
-import { MessagesComponent } from './messages/messages.component';
-import { AppRoutingModule } from './/app-routing.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HttpClientModule } from '@angular/common/http';
-import { NotesComponent } from './notes/notes.component';
-import { TopMenuComponent } from './top-menu/top-menu.component';
+import { TopMenuComponent } from './layout/top-menu/top-menu.component';
+import { UserProfileService } from './core/identity/userprofile.service';
+import { AuthService } from './core/auth/auth.service';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MaterialModule } from './core/material-module.module';
+import { AuthGuardService } from './core/authguard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
+import { TokenInterceptor } from './core/auth/token.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeroesComponent,
-    HeroDetailComponent,
-    MessagesComponent,
-    DashboardComponent,
-    NotesComponent,
     TopMenuComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    MaterialModule
   ],
-  providers: [],
+  exports: [
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    },
+    UserProfileService,
+    AuthService,
+    AuthGuardService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

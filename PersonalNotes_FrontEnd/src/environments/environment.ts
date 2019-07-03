@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  appName:"Note Client",
+  appName:'Note Client',
   apiUrl: 'https://localhost:44364/api/notes',
-  authUrl : 'https://localhost:44383/Indentity/ClientAccount/login'
+  authUrl : 'https://localhost:44364/api/account/login'
 
 };
 

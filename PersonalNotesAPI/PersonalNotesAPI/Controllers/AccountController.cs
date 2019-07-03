@@ -39,9 +39,10 @@ namespace PersonalNotesAPI.Controllers
 
         // POST: api/Account
         [HttpPost]
+        [Route("Login")]
         public async Task<ObjectResult> Post([FromBody] UserModel value)
         {
-           
+
 
             if (ModelState.IsValid)
             {
@@ -52,11 +53,11 @@ namespace PersonalNotesAPI.Controllers
                 {
                     //_logger.LogInformation("User logged in.");
                     //return LocalRedirect(returnUrl);
-                    
+
                     var tokenString = AuthTokenUtil.GetJwtTokenString(value.Username, _config);
                     return new OkObjectResult(tokenString);
                 }
-              
+
             }
 
             // If we got this far, something failed, redisplay form
