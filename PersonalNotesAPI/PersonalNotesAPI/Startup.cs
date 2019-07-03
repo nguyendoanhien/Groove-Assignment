@@ -40,7 +40,7 @@ namespace PersonalNotesAPI
             RegisterAuth(services);
             RegisterIdentity(services);
             RegisterAutoMapperProfiles(services);
-
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -63,6 +63,8 @@ namespace PersonalNotesAPI
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();
+
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

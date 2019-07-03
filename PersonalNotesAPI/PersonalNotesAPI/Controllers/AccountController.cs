@@ -39,7 +39,7 @@ namespace PersonalNotesAPI.Controllers
                 var tokenString = AuthTokenUtil.GetJwtSecurityTokenString(user.userName, _config);
                 return new ObjectResult(tokenString);
             }
-            return new ObjectResult("Invalid login attempt.");
+            return new ObjectResult(null);
 
         }
     }
