@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using PersonalNotesAPI.Models.Note;
 using PersonalNotesAPI.Services;
 using PersonalNotesAPI.Services.Interface;
-
+using System.Linq;
 namespace PersonalNotesAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -26,10 +26,10 @@ namespace PersonalNotesAPI.Controllers
         }
 
         [HttpGet("")]
-        public IEnumerable<FullModel> GetNotes()
+        public ActionResult<IEnumerable<FullModel>> GetNotes()
         {
             var result = _noteService.GetNoteListFullModel();
-            return result;
+            return result.ToList();
         }
 
         [HttpGet("{id}")]

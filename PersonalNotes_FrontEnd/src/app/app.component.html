@@ -1,0 +1,38 @@
+<!-- The content below is only a placeholder and can be replaced.
+<div class="container col-md-8 col-md-offset-2">
+
+  <div class="main-container">
+    <router-outlet></router-outlet>
+  </div>
+</div> -->
+
+<div class="container">
+  <app-top-menu></app-top-menu>
+
+<div class="card">
+  <!-- <button mat-button>All</button>
+  <button mat-raised-button>Of</button>
+  <button mat-raised-button color="primary">The</button>
+  <button mat-raised-button color="accent">Buttons</button> -->
+  <router-outlet></router-outlet>
+</div>
+
+<span class="done">
+  <button mat-fab>
+    <span>check circle</span>
+  </button>
+</span>
+</div>
+
+
+<!--The content below is only a placeholder and can be replaced.-->
+<!-- <h1>{{title}}</h1>
+<nav>
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/heroes">Heroes</a>
+</nav>
+<router-outlet></router-outlet><!-- <app-heroes></app-heroes> -->
+<!-- <app-messages></app-messages>
+<div *ngIf="router.url.includes('login')"></div>
+<app-notes> </app-notes> --> -->
+

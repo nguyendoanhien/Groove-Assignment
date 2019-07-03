@@ -11,6 +11,8 @@ import { AppRoutingModule } from './/app-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NotesComponent } from './notes/notes.component';
+import { TopMenuComponent } from './top-menu/top-menu.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { NotesComponent } from './notes/notes.component';
     HeroDetailComponent,
     MessagesComponent,
     DashboardComponent,
-    NotesComponent
+    NotesComponent,
+    TopMenuComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
