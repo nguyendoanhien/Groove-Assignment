@@ -9,10 +9,10 @@ import { AddNoteComponent } from '../components/add-note/add-note.component';
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'note/list', component: NoteListComponent},
-  { path: 'note/edit', component: EditNoteComponent},
-  { path: 'note/detail/:id', component: DetailNoteComponent},
-  { path: 'note/add', component: AddNoteComponent}
+  { path: 'note/list', component: NoteListComponent },
+  { path: 'note/edit/:id', component: EditNoteComponent },
+  { path: 'note/detail/:id', component: DetailNoteComponent },
+  { path: 'note/add', component: AddNoteComponent }
 ];
 
 @NgModule({

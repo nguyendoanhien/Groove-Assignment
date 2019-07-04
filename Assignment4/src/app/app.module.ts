@@ -10,18 +10,18 @@ import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
 import { TokenInterceptor } from './services/token.interceptor';
 import { NoteListComponent } from './components/note-list/note-list.component';
-import { AddNoteComponent } from './components/add-note/add-note.component';
 import { EditNoteComponent } from './components/edit-note/edit-note.component';
 import { DetailNoteComponent } from './components/detail-note/detail-note.component';
+import { AddNoteComponent } from './components/add-note/add-note.component';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     LoginComponent,
     NoteListComponent,
-    AddNoteComponent,
     EditNoteComponent,
-    DetailNoteComponent
+    DetailNoteComponent,
+    AddNoteComponent
     ],
   imports: [
     BrowserModule,

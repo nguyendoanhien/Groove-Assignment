@@ -41,4 +41,5 @@ export class AppComponent implements OnInit {
   checkAuth(): boolean {
     return this.isLogin === 'true' ? true : false;
   }
+
 }

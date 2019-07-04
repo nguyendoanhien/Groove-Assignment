@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup,FormBuilder, Validator } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Note } from 'src/app/models/note';
+import { NoteService } from 'src/app/services/note.service';
+import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-note',
@@ -8,29 +12,54 @@ import { FormGroup,FormBuilder, Validator } from '@angular/forms';
 })
 export class AddNoteComponent implements OnInit {
 
-  addNoteForm: FormGroup;
+  addnoteForm: FormGroup;
   constructor(
-    private formGroup: FormGroup,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private noteService: NoteService,
+    private userService: UserService,
+    private router: Router
   ) { }
 
-  ngOnInit( )
-  {
-    this.addNoteForm = this.formBuilder.group({
-      username: ['user2@gmail.com'],
-      password: ['B8Z!Z8kdNrERfrF']
+  ngOnInit() {
+    this.addnoteForm = this.formBuilder.group({
+      tittle: ['', Validators.required],
+      description: ['', Validators.required],
+      notebookid: ['', Validators.required],
     });
   }
+  get f() { return this.addnoteForm.controls; }
+
   onSubmit() {
-    // const a: User = { username: this.f.username.value, password: this.f.password.value };
-    // this.userService.Login(a)
-    //   .subscribe(val => {
-    //     console.log(val);
-    //     this.authService.setToken(val);
-    //     this.IsLogin();
-    //   }, err => {
-    //     console.log(err);
-    //   });
+    this.addNote();
+  }
+
+  addNote() {
+    debugger
+    let _tittle : string = this.f.tittle.value;
+    let _description : string = this.f.description.value;
+    let _notebookid : number = this.f.notebookid.value;
+    let _username: string;
+    this.userService.displayNameSub$.subscribe((name: string) => {
+      _username = name;
+    });
+    const newNote: Note = {
+      title: _tittle,
+      description: _description,
+      notebookId: _notebookid,
+      id: 0,
+      finished: false,
+      createdBy: _username,
+      createdOn: null,
+      updatedOn: null,
+      updatedBy: null,
+      deleted: false,
+      timestamp: null
+    };
+    this.noteService.addNote(newNote).subscribe(val => {
+      console.log(val);
+      window.alert('Added Successfully');
+      this.router.navigate(['/note/list']);
+    }, err => console.log(err));
 
   }
 }

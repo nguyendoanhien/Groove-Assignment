@@ -28,7 +28,7 @@
     <td>{{note.updatedOn}}</td> -->
     <!-- <td>{{note.deleted}}</td> -->
     <td><button class='btn btn-light' (click)="getNote(note.id)"> Tick </button></td>
-    <td><button class='btn btn-light' routerLink='/note/edit'> Edit </button></td>
+    <td><button class='btn btn-light' [routerLink]="['/note/edit',note.id]"> Edit </button></td>
     <td><button class='btn btn-light' (click)="deleteNote(note.id)"> X </button></td>
   </tr>
 </table>

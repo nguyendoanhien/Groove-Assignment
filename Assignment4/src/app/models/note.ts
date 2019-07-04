@@ -24,7 +24,7 @@ export interface INote {
 
 export class Note implements INote {
   title: string;
-  id: number; Title: string;
+  id: number; 
   description: string;
   finished: boolean;
   notebookId: number;
