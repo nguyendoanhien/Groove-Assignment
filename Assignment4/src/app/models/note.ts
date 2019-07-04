@@ -1,37 +1,37 @@
-export interface INote
-{
-    Id: number;
+export interface INote {
+  id: number;
 
-    Title: string;
+  title: string;
 
-    Description: string;
+  description: string;
 
-    Finished: boolean;
+  finished: boolean;
 
-    NotebookId: number;
+  notebookId: number;
 
-    CreatedBy: string;
+  createdBy: string;
 
-    CreatedOn: Date | string;
+  createdOn: Date | string;
 
-    UpdatedBy: string;
+  updatedBy: string;
 
-    UpdatedOn: Date | string | null;
+  updatedOn: Date | string | null;
 
-    Deleted: boolean;
+  deleted: boolean;
 
-    Timestamp: string;
+  timestamp: string;
 }
 
 export class Note implements INote {
-  Id: number;  Title: string;
-  Description: string;
-  Finished: boolean;
-  NotebookId: number;
-  CreatedBy: string;
-  CreatedOn: string | Date;
-  UpdatedBy: string;
-  UpdatedOn: string | Date;
-  Deleted: boolean;
-  Timestamp: string;
+  title: string;
+  id: number; Title: string;
+  description: string;
+  finished: boolean;
+  notebookId: number;
+  createdBy: string;
+  createdOn: string | Date;
+  updatedBy: string;
+  updatedOn: string | Date;
+  deleted: boolean;
+  timestamp: string;
 }

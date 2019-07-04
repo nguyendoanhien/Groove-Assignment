@@ -5,14 +5,23 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { UserService } from './services/user.service';
+import { TokenInterceptor } from './services/token.interceptor';
+import { NoteListComponent } from './components/note-list/note-list.component';
+import { AddNoteComponent } from './components/add-note/add-note.component';
+import { EditNoteComponent } from './components/edit-note/edit-note.component';
+import { DetailNoteComponent } from './components/detail-note/detail-note.component';
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    NoteListComponent,
+    AddNoteComponent,
+    EditNoteComponent,
+    DetailNoteComponent
     ],
   imports: [
     BrowserModule,
@@ -21,7 +30,11 @@ import { UserService } from './services/user.service';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  },
     AuthService,
     UserService
   ],

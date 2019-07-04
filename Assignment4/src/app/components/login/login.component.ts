@@ -28,20 +28,33 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['user2@gmail.co', Validators.required],
-      password: ['B8Z!Z8kdNrERfr', Validators.required]
+      username: ['user2@gmail.com', Validators.required],
+      password: ['B8Z!Z8kdNrERfrF', Validators.required]
     });
-
-    // this.authenticationService.logout();
-
-    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
   get f() { return this.loginForm.controls; }
   onSubmit() {
     const a: User = { username: this.f.username.value, password: this.f.password.value };
-    this.userService.Login(a).subscribe(val => {
-      this.authService.setToken(val);
-       this.router.navigate(['dashboard']);
-    }, err => { console.log(err); });
+    this.userService.Login(a)
+      .subscribe(val => {
+        console.log(val);
+        this.authService.setToken(val);
+        this.IsLogin();
+      }, err => {
+        console.log(err);
+      });
+
+  }
+
+  IsLogin() {
+    if (this.authService.getToken() === 'null') {
+      window.alert('Đăng nhập thất bại');
+      this.authService.removeToken();
+      this.router.navigate(['/login']);
+    } else if (this.authService.getToken() !== 'null') {
+      window.alert('Đăng nhập thành công');
+      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard']);
+    }
   }
 }
