@@ -11,19 +11,32 @@ import { MaterialModule } from './core/material-module.module';
 import { AuthGuardService } from './core/authguard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { TokenInterceptor } from './core/auth/token.interceptor';
+import { NoteRoutingModule } from './note/note-routing.module';
+import { NoteListComponent } from './note/note-list/note-list.component';
+import { NoteCreateComponent } from './note/note-create/note-create.component';
+import { NoteEditComponent } from './note/note-edit/note-edit.component';
+import { DisplayNoteComponent } from './note/display-note.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopMenuComponent,
     PageNotFoundComponent,
+    // NoteListComponent,
+    // NoteCreateComponent,
+    // NoteEditComponent,
+    // DisplayNoteComponent
   ],
   imports: [
     BrowserModule,
+    // NoteRoutingModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
+
   ],
   exports: [
   ],

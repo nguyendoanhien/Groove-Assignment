@@ -11,7 +11,7 @@ namespace PersonalNotesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     //[AutoValidateAntiforgeryToken]
     public class NotesController : Controller
     {

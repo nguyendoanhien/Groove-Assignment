@@ -4,12 +4,16 @@
   </span>
 
   <div class="app-title">Welcome to {{ appTitle }}</div>
-  {{displayName}}
+
+  {{_userProfileModel&&_userProfileModel.Email||''}}
+
   <button mat-icon-button [mat-menu-trigger-for]="menu">
     <mat-icon>more_vert</mat-icon>
   </button>
 </mat-toolbar>
 <mat-menu x-position="before" #menu="matMenu">
-  <a mat-menu-item routerLink="/account/login">Login</a>
-  <a mat-menu-item routerLink="/notebook">Notebooks</a>
+  <a mat-menu-item routerLink="/account/login" *ngIf="!_userProfileModel">Login</a>
+  <a mat-menu-item routerLink="/logout" (click)="logOut()" *ngIf="_userProfileModel">Logout</a>
+  <a mat-menu-item routerLink="/note/list" >Notes</a>
+
 </mat-menu>

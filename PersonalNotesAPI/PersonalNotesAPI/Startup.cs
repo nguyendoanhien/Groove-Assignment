@@ -22,6 +22,8 @@ namespace PersonalNotesAPI
 {
     public partial class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -38,7 +40,14 @@ namespace PersonalNotesAPI
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.WithOrigins("*").AllowAnyHeader().AllowAnyMethod();
+                });
+            });
             //services.AddCors(options =>
             //{
             //    options.AddPolicy("AllowAll",
@@ -84,7 +93,7 @@ namespace PersonalNotesAPI
             app.UseCookiePolicy();
 
             app.UseCors(
-      options => options.WithOrigins("http://localhost:4200").AllowAnyMethod()
+      MyAllowSpecificOrigins
   );
             app.UseMvc(routes =>
             {

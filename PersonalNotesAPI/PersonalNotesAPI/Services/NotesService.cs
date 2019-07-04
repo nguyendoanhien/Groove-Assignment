@@ -58,9 +58,7 @@ namespace PersonalNotesAPI.Services
         public void EditNote(EditModel data)
         {
             var storedData = _noteRepository.GetSingle(data.Id);
-            storedData.Title = data.Title;
-            storedData.Description = data.Description;
-            storedData.Timestamp = data.Timestamp;
+            storedData = _mapper.Map<EditModel, NoteEntity>(data);
             _noteRepository.Edit(storedData);
             _uow.SaveChanges();
         }

@@ -21,7 +21,8 @@ namespace PersonalNotesAPI.Auth
                 new Claim(ClaimTypes.Name, userName),
                 new Claim("DisplayName", userName.Split('@')[0]),
                 new Claim("UserName", userName),
-                new Claim(JwtRegisteredClaimNames.Email, userName)
+                new Claim(JwtRegisteredClaimNames.Email, userName),
+                new Claim("BiMat","bimat123")
             };
 
             var token = new JwtSecurityToken(

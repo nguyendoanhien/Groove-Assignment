@@ -7,6 +7,7 @@ import { AuthService } from './auth/auth.service';
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+      debugger;
         var isAuthenticated = this.authService.isAuthenticated();
         if (isAuthenticated) {
             return true;

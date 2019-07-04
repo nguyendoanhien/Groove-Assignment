@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { UserProfileService } from 'src/app/core/identity/userprofile.service';
+import { UserProfileModel } from 'src/app/account/user-profile/user-profile.model';
 
 @Component({
   selector: 'app-top-menu',
@@ -11,17 +12,22 @@ import { UserProfileService } from 'src/app/core/identity/userprofile.service';
 
 export class TopMenuComponent implements OnInit {
   public appTitle: string;
-  public displayName: string;
-  constructor(private userProfileService:  UserProfileService) {
+  public _userProfileModel: UserProfileModel;
+  constructor(private userProfileService: UserProfileService) {
+    console.log(this._userProfileModel);
     this.appTitle = environment.appName;
-    this.displayName = "";
-    this.userProfileService.displayNameSub$.subscribe((name: string) => {
-      this.displayName = name;
-    })
+    this.userProfileService.displayNameSub$.subscribe((userprofileModel: UserProfileModel) => {
+
+      this._userProfileModel = userprofileModel;
+    });
 
   }
 
   ngOnInit() {
   }
 
+  private logOut() {
+    this.userProfileService.logOut();
+
+  }
 }
