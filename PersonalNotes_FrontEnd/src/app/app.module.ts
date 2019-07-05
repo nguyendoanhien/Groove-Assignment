@@ -17,6 +17,7 @@ import { NoteCreateComponent } from './note/note-create/note-create.component';
 import { NoteEditComponent } from './note/note-edit/note-edit.component';
 import { DisplayNoteComponent } from './note/display-note.component';
 import { FormsModule } from '@angular/forms';
+import { LoginGuardService } from './core/login-guard.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { FormsModule } from '@angular/forms';
     UserProfileService,
     AuthService,
     AuthGuardService,
+
     UserProfileService
   ],
   bootstrap: [AppComponent]
