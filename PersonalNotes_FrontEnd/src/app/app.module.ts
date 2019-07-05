@@ -18,6 +18,7 @@ import { NoteEditComponent } from './note/note-edit/note-edit.component';
 import { DisplayNoteComponent } from './note/display-note.component';
 import { FormsModule } from '@angular/forms';
 import { LoginGuardService } from './core/login-guard.service';
+import { EditGuardService } from './core/edit-guard.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { LoginGuardService } from './core/login-guard.service';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
 
   ],
   exports: [
@@ -50,7 +51,7 @@ import { LoginGuardService } from './core/login-guard.service';
     UserProfileService,
     AuthService,
     AuthGuardService,
-
+    EditGuardService,
     UserProfileService
   ],
   bootstrap: [AppComponent]

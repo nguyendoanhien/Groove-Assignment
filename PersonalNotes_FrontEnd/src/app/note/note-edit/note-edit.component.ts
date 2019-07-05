@@ -5,6 +5,7 @@ import { NoteService } from 'src/app/note.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserProfileService } from 'src/app/core/identity/userprofile.service';
 import { Location } from '@angular/common';
+
 @Component({
   selector: 'app-note-edit',
   templateUrl: './note-edit.component.html',
@@ -17,13 +18,15 @@ export class NoteEditComponent implements OnInit {
   constructor(private location: Location, private route: ActivatedRoute, private _noteService: NoteService, private _router: Router, private userProfileService: UserProfileService) { }
 
   ngOnInit() {
+    const id = +this.route.snapshot.paramMap.get('id');
+    console.log(id);
     this.getNote();
   }
   editNote() {
     debugger;
     this._noteService.editNote(this.note.id, this.note).subscribe((note: Note) => {
       console.log(note);
-      this._router.navigate(['note','list']);
+      this._router.navigate(['note', 'list']);
     }, (error: any) => console.log(error));
 
 

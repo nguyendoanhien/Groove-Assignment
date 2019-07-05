@@ -9,7 +9,8 @@ import { NoteCreateComponent } from './note-create/note-create.component';
 import { NoteEditComponent } from './note-edit/note-edit.component';
 import { DisplayNoteComponent } from './display-note.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
+import { ActivatedRouteSnapshot } from '@angular/router';
 @NgModule({
   declarations: [NoteListComponent, NoteCreateComponent, NoteEditComponent, DisplayNoteComponent],
   imports: [
@@ -23,7 +24,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule
   ],
   providers: [
-
   ]
 })
 export class NoteModule { }
