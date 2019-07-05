@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 // import { UserProfileState } from '../../states/userprofile.state';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserProfileModel } from 'src/app/account/user-profile/user-profile.model';
 import { environment } from '../../../environments/environment';
@@ -16,14 +16,13 @@ const authUrl = environment.authUrl;
 export class UserProfileService {
 
   private userProfile: UserProfileModel;
-
+  public color: string = "Red";
   constructor(private router: Router,
     private authService: AuthService,
     private http: HttpClient) {
-    this.userProfile = new UserProfileModel();
   }
 
-  public displayNameSub$: Subject<UserProfileModel> = new Subject<UserProfileModel>();
+  public displayNameSub$: BehaviorSubject<UserProfileModel> = new BehaviorSubject<UserProfileModel>(null);
 
 
   logIn(loginModel: LoginModel) {
@@ -46,10 +45,10 @@ export class UserProfileService {
       return this.http.post<string>(authUrl, body, httpOptions)
         .pipe(
           map((token: string) => { this.parseJwtToken(token); localStorage.setItem('token', token) })
-        )
-        .subscribe(
-
         );
+      // .subscribe(
+
+      // );
     }
   }
 
@@ -68,6 +67,11 @@ export class UserProfileService {
     });
     return this.userProfile.Email;
   }
+
+  public CurrentUserProfileModel() {
+    this.loadStoredUserProfile();
+    return this.userProfile;
+  }
   public parseJwtToken(token: string) {
     debugger;
     const jwt = token;
@@ -80,6 +84,7 @@ export class UserProfileService {
     userProfileModel.Email = decodedJwt.email;
     userProfileModel.SecurityAccessToken = jwt;
     this.userProfile = userProfileModel;
+    this.color = 'Blue';
     this.displayNameSub$.next(this.userProfile/* .DisplayName */);
   }
 

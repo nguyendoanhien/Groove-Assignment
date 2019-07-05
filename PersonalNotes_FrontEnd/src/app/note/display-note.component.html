@@ -1,0 +1,15 @@
+
+  <td>{{note.id}}</td>
+  <td>{{note.title}}</td>
+  <td>{{note.description}}</td>
+  <td><input type="checkbox" disabled [(ngModel)]="note.isDone">Is Done?</td>
+  <td>{{note.createdBy}}</td>
+  <td>{{note.createdOn | date}}</td>
+  <td>
+    <a class="detail" title="Detail" data-toggle="tooltip"><i class="material-icons"
+        (click)="detailNote(note.id)">&#xe3c8;  </i></a>
+    <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" [routerLink]="['/note','edit',note.id]">&#xE254;</i></a> <!-- (click)="editNote(note.id)" -->
+    <a class="delete" title="Delete" data-toggle="tooltip" (click)="callParent()"><i
+        class="material-icons">&#xE872;</i></a>
+  </td>
+

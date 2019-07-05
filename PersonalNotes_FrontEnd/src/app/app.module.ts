@@ -48,7 +48,8 @@ import { FormsModule } from '@angular/forms';
     },
     UserProfileService,
     AuthService,
-    AuthGuardService
+    AuthGuardService,
+    UserProfileService
   ],
   bootstrap: [AppComponent]
 })

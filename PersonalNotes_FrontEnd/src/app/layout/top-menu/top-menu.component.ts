@@ -13,21 +13,26 @@ import { UserProfileModel } from 'src/app/account/user-profile/user-profile.mode
 export class TopMenuComponent implements OnInit {
   public appTitle: string;
   public _userProfileModel: UserProfileModel;
-  constructor(private userProfileService: UserProfileService) {
-    console.log(this._userProfileModel);
-    this.appTitle = environment.appName;
-    this.userProfileService.displayNameSub$.subscribe((userprofileModel: UserProfileModel) => {
+  constructor(private _userProfileService: UserProfileService) {
 
-      this._userProfileModel = userprofileModel;
-    });
+
 
   }
 
   ngOnInit() {
+
+    this.appTitle = environment.appName;
+    debugger;
+    this._userProfileModel = this._userProfileService.CurrentUserProfileModel();
+    let GetColor: string = this._userProfileService.color;
+    this._userProfileService.displayNameSub$.subscribe((userprofileModel: UserProfileModel) => {
+
+      this._userProfileModel = userprofileModel;
+    });
   }
 
   private logOut() {
-    this.userProfileService.logOut();
+    this._userProfileService.logOut();
 
   }
 }

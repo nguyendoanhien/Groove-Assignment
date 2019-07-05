@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="table-wrapper">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-8">
+          <h2>Employee <b>Details</b></h2>
+        </div>
+        <div class="col-sm-4">
+          <a [routerLink]="['/note/create']">
+            <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
+          </a>
+        </div>
+      </div>
+    </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>IsDone</th>
+          <th>CreatedBy</th>
+          <th>CreatedDate</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let note of notes" my-tr [note]="note" (notify)="getNotes()">
+          <!-- <app-display-note  [note]="note"></app-display-note> -->
+
+          <!-- <td>{{note.id}}</td>
+          <td>{{note.title}}</td>
+          <td>{{note.description}}</td>
+          <td>{{note.createdBy}}</td>
+          <td>{{note.createdOn | date}}</td>
+          <td>
+              <a class="detail" title="Detail" data-toggle="tooltip"><i class="material-icons" (click)="detailNote(note.id)">Detail</i></a>
+              <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons" (click)="editNote(note.id)">&#xE254;</i></a>
+              <a class="delete" title="Delete" data-toggle="tooltip" (click)="deleteNote(note.id)"><i class="material-icons">&#xE872;</i></a>
+          </td> -->
+
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
