@@ -4,7 +4,8 @@ import { Note } from 'src/app/models/note';
 import { NoteService } from 'src/app/services/note.service';
 import { validateConfig } from '@angular/router/src/config';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { AuthService } from 'src/app/services/auth.service';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-edit-note',
   templateUrl: './edit-note.component.html',
@@ -13,22 +14,21 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class EditNoteComponent implements OnInit {
   notebookid = 1;
   checkedIsdone: boolean;
-  editnoteForm: FormGroup;
   public note: Note;
+  submitted = false;
   constructor(
     private router: ActivatedRoute,
     private noteService: NoteService,
     private formBuilder: FormBuilder,
-    private route: Router
+    private route: Router,
+    private authService: AuthService,
+    private location: Location
   ) { }
-
   ngOnInit() {
     const id = +this.router.snapshot.paramMap.get('id');
     this.getOldNote(id);
-
   }
   getOldNote(id: number): Note {
-    debugger
     this.noteService.getNote(id).subscribe(val => {
       console.log(val);
       this.note = val;
@@ -37,19 +37,30 @@ export class EditNoteComponent implements OnInit {
   }
 
   onSumit() {
+    this.submitted = true;
     const id = +this.router.snapshot.paramMap.get('id');
-    debugger
     this.note.notebookId = this.notebookid;
-
-    this.noteService.editNote(id, this.note).subscribe(val => {
-      console.log(val);
-      this.route.navigate(['note/list']);
-      window.alert('Successful Edited');
-    }, err => console.log(err));
+      this.noteService.editNote(id, this.note).subscribe(val => {
+        console.log(val);
+        this.route.navigate(['note/list']);
+        window.alert('Successful Edited');
+      }, err => console.log(err));
   }
 
   selectedOption(id: number) {
     console.log(id);
     this.notebookid = id;
+  }
+  checkAuth(): boolean {
+    const isAuth = this.authService.getIsAuth();
+    if (isAuth === 'true') {
+      return true;
+    } else { return false; }
+  }
+
+  goBack() {
+    if (confirm('Are your sure you want to discard your changes?')) {
+      this.location.back();
+    }
   }
 }

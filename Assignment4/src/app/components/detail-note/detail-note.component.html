@@ -1,42 +1,48 @@
-<p>Detail Note</p>
-<table class='table table-responsive'>
-  <tbody *ngIf="note">
+<div *ngIf='checkAuth()'>
+  <p>Detail Note</p>
+  <table class='table table-responsive'>
+    <tbody *ngIf="note">
+      <tr>
+        <td>Id</td>
+        <td>{{note.id}}</td>
+    </tbody>
     <tr>
-      <td>Id</td>
-      <td>{{note.id}}</td>
-  </tbody>
-  <tr>
-    <td>Title </td>
-    <td>{{note.title }}</td>
-  </tr>
-  <tr>
-  <td>Description</td>
-  <td>{{note.description}}</td>
-  </tr>
-  <tr>
-    <td>Finished</td>
-    <td><input type="checkbox" [value]="note.isdone" [checked]="note.isdone"></td>
-  </tr>
-  <tr>
-    <td>NotebookId</td>
-    <td>{{note.notebookId}}</td>
-  </tr>
-  <tr>
-    <td>Created By</td>
-    <td>{{note.createdBy}}</td>
-  </tr>
-  <tr>
-    <td>Created On</td>
-    <td>{{note.createdOn}}</td>
-  </tr>
-  <tr>
-    <td>Updated By</td>
-    <td>{{note.updatedBy}}</td>
-  </tr>
-  <tr>
-    <td>Updated On</td>
-    <td>{{note.updatedOn}}</td>
-  </tr>
-  </tbody>
+      <td>Title </td>
+      <td>{{note.title }}</td>
+    </tr>
+    <tr>
+      <td>Description</td>
+      <td>{{note.description}}</td>
+    </tr>
+    <tr>
+      <td>Finished</td>
+      <td><input type="checkbox" [value]="note.isdone" [checked]="note.isdone" disabled></td>
+    </tr>
+    <tr>
+      <td>NotebookId</td>
+      <td>{{note.notebookId}}</td>
+    </tr>
+    <tr>
+      <td>Created By</td>
+      <td>{{note.createdBy}}</td>
+    </tr>
+    <tr>
+      <td>Created On</td>
+      <td>{{note.createdOn}}</td>
+    </tr>
+    <tr>
+      <td>Updated By</td>
+      <td>{{note.updatedBy}}</td>
+    </tr>
+    <tr>
+      <td>Updated On</td>
+      <td>{{note.updatedOn}}</td>
+    </tr>
+    </tbody>
 
   </table>
+</div>
+
+<div *ngIf='!checkAuth()'>
+  Please login!!
+</div>

@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
       this.isLogin = auth;
     });
     console.log('isauth name: ' + this.isLogin);
+    this.displayName = this.authService.getUserName();
   }
 
   logout() {
@@ -39,7 +40,10 @@ export class AppComponent implements OnInit {
     this.router.navigate(['/login']);
   }
   checkAuth(): boolean {
-    return this.isLogin === 'true' ? true : false;
+    const isAuth = this.authService.getIsAuth();
+    if (isAuth === 'true') {
+      return true;
+    } else { return false; }
   }
 
 }

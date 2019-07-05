@@ -1,53 +1,50 @@
-<p>
-  edit-note works!
-</p>
-<!--
-<div class="col-8" [formGroup]="form" (ngSubmit)="onSubmit()" >
-  <form [formGroup]="editnoteForm" >
+<div *ngIf='!checkAuth()'>
+  Please Login!!!
+</div>
+<div *ngIf='checkAuth()'>
+  <p>
+    edit-note works!
+  </p>
+  <form #f="ngForm" (ngSubmit)="f.form.valid && onSumit()" *ngIf="note">
     <div class="form-group">
-      <label>Tittle</label>
-      <input class="form-control" formControlName="tittle">
+      <label for="title">Title</label>
+      <input id="tittle" class="form-control" name="title" [(ngModel)]="note.title" #tittleField="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && tittleField.invalid }" required maxlength="50">
+      <div *ngIf="f.submitted && tittleField.invalid" class="invalid-feedback">
+        <div *ngIf="!!tittleField.errors.required">Tittle is required</div>
+        <div *ngIf="!!tittleField.errors.maxlength">Tittle must be less than 50 characters</div>
+      </div>
     </div>
     <div class="form-group">
-      <label>Description</label>
-      <input class="form-control" formControlName="description">
+      <label for="description">Description</label>
+      <input id="description" class="form-control" name="description" [(ngModel)]="note.description"
+        #descriptionField="ngModel" [ngClass]="{ 'is-invalid': f.submitted && descriptionField.invalid }" required>
+        <div *ngIf="f.submitted && descriptionField.invalid" class="invalid-feedback">
+          <div *ngIf="!!descriptionField.errors.required">Description is required</div>
+      </div>
     </div>
     <div class="form-group">
       <label>NotebookId</label>
-      <input class="form-control" formControlName="notebookid">
+      <select (change)="selectedOption($event.target.value)" name="notebookid" id="notebookid" class="form-control">
+        <option [value]="1">1</option>
+        <option [value]="2">2</option>
+        <option [value]="3">3</option>
+      </select>
     </div>
     <div class="form-group">
-      <label>Is Finished?</label>
-      <input type="checkbox" class="form-control" formControlName="notebookid">
+      <div class="form-control">
+        <label class="checkbox-inline">
+          <input type="checkbox" name="isDone" #isDoneField="ngModel" [(ngModel)]="note.isdone">Is Done?
+        </label>
+      </div>
     </div>
-
+    <div class="form-group">
+      <div class="btn-toolbar">
+        <div class="btn-group">
+          <button class="btn btn-primary" type="button" (click)="goBack()">Back</button></div>
+        <div class="btn-group">
+          <button class="btn btn-primary" type="submit">Update</button> </div>
+      </div>
+    </div>
   </form>
-</div> -->
-<form (ngSubmit)="onSumit()" *ngIf="note">
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" class="form-control" name="title" [(ngModel)]="note.title">
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-    <input id="description" type="text" class="form-control" name="description" [(ngModel)]="note.description">
-  </div>
-  <div class="form-group">
-    <label>NotebookId</label>
-    <select (change)="selectedOption($event.target.value)" name="notebookid" id="notebookid" class="form-control">
-      <option [value]="1">1</option>
-      <option [value]="2">2</option>
-      <option [value]="3">3</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <div class="form-control">
-      <label class="checkbox-inline">
-        <input type="checkbox" name="isDone" [(ngModel)]="note.isdone">Is Done?
-      </label>
-    </div>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-primary" type="submit">Update</button>
-  </div>
-</form>
+</div>

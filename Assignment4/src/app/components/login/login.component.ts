@@ -13,10 +13,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  userName: string;
   loginForm: FormGroup;
-  loading = false;
-  submitted = false;
+  userLoginSuccess: User;
   returnUrl: string;
   constructor(
     private formBuilder: FormBuilder,
@@ -38,7 +37,11 @@ export class LoginComponent implements OnInit {
     this.userService.Login(a)
       .subscribe(val => {
         console.log(val);
+        this.userLoginSuccess = val;
         this.authService.setToken(val);
+
+        this.SetUserName(a);
+        this.SetIsAuth();
         this.IsLogin();
       }, err => {
         console.log(err);
@@ -54,7 +57,35 @@ export class LoginComponent implements OnInit {
     } else if (this.authService.getToken() !== 'null') {
       window.alert('Đăng nhập thành công');
       this.router.navigate(['/dashboard']);
-      this.router.navigate(['/dashboard']);
     }
   }
+
+  SetUserName(user: User) {
+    if (this.authService.isAuthenticated()) {
+      this.authService.setUserName(user.username);
+    }
+  }
+  SetIsAuth() {
+    if (this.authService.isAuthenticated()) {
+      this.authService.setIsAuth('true');
+    } else { this.authService.setIsAuth('false'); }
+  }
+
+  checkAuth(): boolean {
+    const isAuth = this.authService.getIsAuth();
+    if (isAuth === 'true') {
+      return true;
+    } else { return false; }
+  }
+
+  // AuthExists(): boolean {
+  //   debugger
+  //   if (this.authService.getIsAuth() === null) {
+  //     return false;
+  //   } else { return true; }
+  // }
+  // RedirectURL() {
+  //   debugger
+  //   this.router.navigate(['note/list']);
+  //   }
 }

@@ -14,8 +14,10 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
-  IsAuth(): boolean {
-    debugger
-    return this.authService.isAuthenticated();
+  checkAuth(): boolean {
+    const isAuth = this.authService.getIsAuth();
+    if (isAuth === 'true') {
+      return true;
+    } else { return false; }
   }
 }

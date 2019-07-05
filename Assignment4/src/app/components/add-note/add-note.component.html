@@ -1,26 +1,40 @@
-<p>
-  add-note works!
-</p>
-<div class="col-8">
-<form [formGroup]="addnoteForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label>Tittle</label>
-    <input class="form-control" formControlName="tittle">
+<div *ngIf='!checkAuth()'>
+  Please Login!!!
+</div>
+<div *ngIf='checkAuth()'>
+  <p>
+    add-note works!
+  </p>
+  <div class="col-8">
+    <form [formGroup]="addnoteForm" #addnote="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Tittle</label>
+        <input type="text" class="form-control" formControlName="tittle" [ngClass]="{ 'is-invalid': submitted && f.tittle.errors }">
+        <div *ngIf="submitted && !!f.tittle.errors" class="invalid-feedback">
+            <div *ngIf="!!f.tittle.errors.required">Tittle is required</div>
+            <div *ngIf="!!f.tittle.errors.maxlength">Tittle must be less than 50 characters</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input class="form-control" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }">
+        <div *ngIf="submitted && !!f.description.errors" class="invalid-feedback">
+            <div *ngIf="!!f.description.errors.required">Description is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>NotebookId</label>
+        <select (change)="selectedOption($event.target.value)" name="notebookid" id="notebookid" class="form-control">
+          <option [value]="1">1</option>
+          <option [value]="2">2</option>
+          <option [value]="3">3</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <div class="btn-group">
+          <button class="btn btn-primary" type="submit">Add</button>
+          <button class="btn btn-primary" type="button" (click)="goBack()">Back</button></div>
+      </div>
+    </form>
   </div>
-  <div class="form-group">
-    <label>Description</label>
-    <input class="form-control" formControlName="description">
-  </div>
-  <div class="form-group">
-    <label>NotebookId</label>
-    <select (change)="selectedOption($event.target.value)" name="notebookid" id = "notebookid" class="form-control" >
-      <option [value]="1">1</option>
-      <option [value]="2">2</option>
-      <option [value]="3">3</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-primary" type="submit">Add</button>
-  </div>
-</form>
 </div>

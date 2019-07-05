@@ -1,40 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, MaxLengthValidator, NgForm } from '@angular/forms';
 import { Note } from 'src/app/models/note';
 import { NoteService } from 'src/app/services/note.service';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
-
+import { AuthService } from 'src/app/services/auth.service';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-add-note',
   templateUrl: './add-note.component.html',
   styleUrls: ['./add-note.component.css']
 })
 export class AddNoteComponent implements OnInit {
-  notebookId: number = 1;
+  @ViewChild('addnote') public addNoteForm: NgForm;
+  notebookId = 1;
   addnoteForm: FormGroup;
+  submitted = false;
   constructor(
     private formBuilder: FormBuilder,
     private noteService: NoteService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private location: Location,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
     this.addnoteForm = this.formBuilder.group({
-      tittle: ['', Validators.required],
-      description: ['', Validators.required],
-      notebookid: ['', Validators.required],
+      tittle: ['', [Validators.required, Validators.maxLength(50)]],
+      description: ['', Validators.required]
     });
   }
   get f() { return this.addnoteForm.controls; }
 
   onSubmit() {
-    this.addNote();
+    this.submitted = true;
+    if (this.addnoteForm.invalid) { return }
+    else { this.addNote(); };
   }
 
   addNote() {
-    debugger
     const _tittle: string = this.f.tittle.value;
     const _description: string = this.f.description.value;
     let _username: string;
@@ -64,5 +69,14 @@ export class AddNoteComponent implements OnInit {
   selectedOption(id: number) {
     console.log(id);
     this.notebookId = id;
+  }
+  checkAuth(): boolean {
+    const isAuth = this.authService.getIsAuth();
+    if (isAuth === 'true') {
+      return true;
+    } else { return false; }
+  }
+  goBack() {
+    this.location.back();
   }
 }

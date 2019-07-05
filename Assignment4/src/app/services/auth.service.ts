@@ -15,8 +15,11 @@ export class AuthService {
     localStorage.setItem('token', token);
   }
 
+
   public removeToken() {
     localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('isAuth');
   }
 
   public isAuthenticated(): boolean {
@@ -31,5 +34,18 @@ export class AuthService {
     this.rs = this.isAuthenticated() === true ? 'true' : 'false';
     this.isAuth$.next(this.rs);
     console.log(this.rs);
+  }
+
+  public setUserName(username: string) {
+    localStorage.setItem('username', username);
+  }
+  public getUserName(): string {
+    return localStorage.getItem('username') === null ? '' : localStorage.getItem('username');
+  }
+  public setIsAuth(val: string) {
+    localStorage.setItem('isAuth', val);
+  }
+  public getIsAuth(): string {
+    return localStorage.getItem('isAuth') === null ? '' : localStorage.getItem('isAuth');
   }
 }

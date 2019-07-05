@@ -4,6 +4,7 @@ import { pipe, Observable } from 'rxjs';
 import { Note, INote } from '../../models/note';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-note-list',
   templateUrl: './note-list.component.html',
@@ -13,7 +14,8 @@ export class NoteListComponent implements OnInit {
   public notes: Note[];
   constructor(
     private noteService: NoteService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -21,7 +23,6 @@ export class NoteListComponent implements OnInit {
   }
 
   getNoteList() {
-    debugger
     this.noteService.getNotes().subscribe(val => {
       console.log(val);
       this.notes = val;
@@ -33,14 +34,22 @@ export class NoteListComponent implements OnInit {
     this.noteService.getNote(id).subscribe(val => {
       console.log(val);
       this.router.navigate([`/note/detail/${id}`]);
-      }, err => console.log(err));
+    }, err => console.log(err));
   }
 
   deleteNote(id: number) {
-    this.noteService.deleteNote(id).subscribe(val => {
-      console.log(val);
-      this.getNoteList();
-    }, err => console.log(err));
+    if (confirm('Are you sure to delete this note?')){
+      this.noteService.deleteNote(id).subscribe(val => {
+        console.log(val);
+        this.getNoteList();
+      }, err => console.log(err));
+    }
+  }
 
+  checkAuth(): boolean {
+    const isAuth = this.authService.getIsAuth();
+    if (isAuth === 'true') {
+      return true;
+    } else { return false; }
   }
 }

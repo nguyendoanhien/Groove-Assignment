@@ -1,1 +1,6 @@
-<p>Đây là dashboard</p>
+<div *ngIf="checkAuth()">
+  <p>Đây là dashboard</p>
+</div>
+<div *ngIf="!checkAuth()">
+  <p>Please login!!!</p>
+</div>

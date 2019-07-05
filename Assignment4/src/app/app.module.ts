@@ -13,6 +13,9 @@ import { NoteListComponent } from './components/note-list/note-list.component';
 import { EditNoteComponent } from './components/edit-note/edit-note.component';
 import { DetailNoteComponent } from './components/detail-note/detail-note.component';
 import { AddNoteComponent } from './components/add-note/add-note.component';
+import { AddNoteGuard } from './services/route-guard.service';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { RouteGuardCanActivate } from './services/RouteGuardCanActivate';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +24,8 @@ import { AddNoteComponent } from './components/add-note/add-note.component';
     NoteListComponent,
     EditNoteComponent,
     DetailNoteComponent,
-    AddNoteComponent
+    AddNoteComponent,
+    PageNotFoundComponent
     ],
   imports: [
     BrowserModule,
@@ -36,7 +40,9 @@ import { AddNoteComponent } from './components/add-note/add-note.component';
     multi: true
   },
     AuthService,
-    UserService
+    UserService,
+    AddNoteGuard,
+    RouteGuardCanActivate
   ],
   bootstrap: [AppComponent]
 })
