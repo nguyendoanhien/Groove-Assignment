@@ -6,8 +6,16 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class RouteGuardCanActivate implements CanActivate {
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
-    throw new Error("Method not implemented.");
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>{
+    const id = +route.paramMap.get('id');
+    return this._noteService.getNote(id).pipe(
+      map(res => {
+        if (res) {
+          return true;
+        }
+        return false;
+      })
+    );
   }
 
   constructor(
@@ -17,7 +25,7 @@ export class RouteGuardCanActivate implements CanActivate {
     private routeActivate: ActivatedRoute
 
   ) {
-    var snapshot = routeActivate.snapshot;
+
   }
   // canActivate(next: ActivatedRoute, state: RouterStateSnapshot): Observable<boolean> {
   //   // return this._noteService.getNote(+this._route.paramMap.get('id')).subscribe(e => {
