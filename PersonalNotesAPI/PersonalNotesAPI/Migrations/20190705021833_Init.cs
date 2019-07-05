@@ -60,7 +60,9 @@ namespace PersonalNotesAPI.Migrations
                     UpdatedBy = table.Column<string>(nullable: true),
                     UpdatedOn = table.Column<DateTime>(nullable: true),
                     Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    Description = table.Column<string>(nullable: true),
+                    NotebookId = table.Column<int>(nullable: false),
+                    IsDone = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

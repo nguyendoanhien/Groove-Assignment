@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./note-list.component.css']
 })
 export class NoteListComponent implements OnInit {
-  public notes: INote[];
+  public notes: Note[];
   constructor(
     private noteService: NoteService,
     private router: Router
@@ -21,6 +21,7 @@ export class NoteListComponent implements OnInit {
   }
 
   getNoteList() {
+    debugger
     this.noteService.getNotes().subscribe(val => {
       console.log(val);
       this.notes = val;

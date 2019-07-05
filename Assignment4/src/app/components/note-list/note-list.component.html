@@ -6,7 +6,7 @@
     <th>ID</th>
     <th>Title </th>
     <th>Description</th>
-    <th>Finished</th>
+    <th>IsDone?</th>
     <th>NotebookId</th>
     <!-- <th>Created By</th>
     <th>Created On</th>
@@ -20,7 +20,7 @@
     <td>{{note.id}}</td>
     <td>{{note.title }}</td>
     <td>{{note.description}}</td>
-    <td>{{note.finished}}</td>
+    <td><input type="checkbox" [value]="note.isdone" [checked]="note.isdone"></td>
     <td>{{note.notebookId}}</td>
     <!-- <td>{{note.createdBy}}</td>
     <td>{{note.createdOn}}</td>

@@ -13,7 +13,11 @@
   </div>
   <div class="form-group">
     <label>NotebookId</label>
-    <input class="form-control" formControlName="notebookid">
+    <select (change)="selectedOption($event.target.value)" name="notebookid" id = "notebookid" class="form-control" >
+      <option [value]="1">1</option>
+      <option [value]="2">2</option>
+      <option [value]="3">3</option>
+    </select>
   </div>
   <div class="form-group">
     <button class="btn btn-primary" type="submit">Add</button>

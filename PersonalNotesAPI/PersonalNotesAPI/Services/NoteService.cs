@@ -45,6 +45,8 @@ namespace PersonalNotesAPI.Services
             storedData.Title = note.Title;
             storedData.Description = note.Description;
             storedData.Timestamp = note.Timestamp;
+            storedData.NotebookId = note.NotebookId;
+            storedData.isdone = note.IsDone;
             _noteRepository.UpdateNote(storedData);
         }
 

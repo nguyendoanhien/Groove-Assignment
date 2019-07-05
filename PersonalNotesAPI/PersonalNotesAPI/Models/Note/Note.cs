@@ -18,7 +18,7 @@ namespace PersonalNotesAPI.Models.Note
         [Required]
         public string Description { get; set; }
 
-        public bool Finished { get; set; }
+        public bool isdone { get; set; }
 
        // [NoteExist]
         public int NotebookId { get; set; }

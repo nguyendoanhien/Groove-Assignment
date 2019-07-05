@@ -15,7 +15,7 @@ namespace PersonalNotesAPI.Models.Note
         [StringLength(255, ErrorMessage = "255 characters maximum")]
         public string Description { get; set; }
         [DisplayName("Is done?")]
-        public bool Finished { get; set; }
-
+        public bool IsDone { get; set; }
+        public int NotebookId { get; set; }
     }
 }

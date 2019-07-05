@@ -10,8 +10,8 @@ export class NoteService {
 
   constructor(private _http: HttpClient) { }
 
-  getNotes(): Observable<INote[]> {
-    return this._http.get<INote[]>('https://localhost:44316/api/note');
+  getNotes(): Observable<Note[]> {
+    return this._http.get<Note[]>('https://localhost:44316/api/note');
   }
 
   getNote(id: number): Observable<Note> {
@@ -22,12 +22,12 @@ export class NoteService {
     return this._http.delete<INote>(`https://localhost:44316/api/note/${id}`);
   }
 
-  editNote(id: number, note: Note): Observable<INote> {
+  editNote(id: number, note: Note): Observable<Note> {
     return this._http.put<Note>(`https://localhost:44316/api/note/${id}`, note);
   }
 
   addNote(note: Note): Observable<Note>{
     return this._http.post<Note>('https://localhost:44316/api/note',note);
   }
-  
+
 }

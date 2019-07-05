@@ -10,7 +10,7 @@ using PersonalNotesAPI.Data;
 namespace PersonalNotesAPI.Migrations
 {
     [DbContext(typeof(NoteDBContext))]
-    [Migration("20190701020317_Init")]
+    [Migration("20190705021833_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -200,6 +200,10 @@ namespace PersonalNotesAPI.Migrations
                         .HasColumnName("Deleted");
 
                     b.Property<string>("Description");
+
+                    b.Property<bool>("IsDone");
+
+                    b.Property<int>("NotebookId");
 
                     b.Property<byte[]>("Timestamp")
                         .IsConcurrencyToken()

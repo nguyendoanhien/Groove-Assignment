@@ -11,6 +11,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./edit-note.component.css']
 })
 export class EditNoteComponent implements OnInit {
+  notebookid = 1;
+  checkedIsdone: boolean;
   editnoteForm: FormGroup;
   public note: Note;
   constructor(
@@ -23,7 +25,7 @@ export class EditNoteComponent implements OnInit {
   ngOnInit() {
     const id = +this.router.snapshot.paramMap.get('id');
     this.getOldNote(id);
-    
+
   }
   getOldNote(id: number): Note {
     debugger
@@ -34,12 +36,20 @@ export class EditNoteComponent implements OnInit {
     return this.note;
   }
 
-  onSumit(){
+  onSumit() {
     const id = +this.router.snapshot.paramMap.get('id');
-    this.noteService.editNote(id,this.note).subscribe(val=>{
+    debugger
+    this.note.notebookId = this.notebookid;
+
+    this.noteService.editNote(id, this.note).subscribe(val => {
       console.log(val);
       this.route.navigate(['note/list']);
-      window.alert('Successful Edited')
-    },err=>console.log(err));
+      window.alert('Successful Edited');
+    }, err => console.log(err));
+  }
+
+  selectedOption(id: number) {
+    console.log(id);
+    this.notebookid = id;
   }
 }

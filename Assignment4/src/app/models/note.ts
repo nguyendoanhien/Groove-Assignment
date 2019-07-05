@@ -5,7 +5,7 @@ export interface INote {
 
   description: string;
 
-  finished: boolean;
+  isdone: boolean;
 
   notebookId: number;
 
@@ -24,9 +24,9 @@ export interface INote {
 
 export class Note implements INote {
   title: string;
-  id: number; 
+  id: number;
   description: string;
-  finished: boolean;
+  isdone: boolean;
   notebookId: number;
   createdBy: string;
   createdOn: string | Date;

@@ -199,6 +199,10 @@ namespace PersonalNotesAPI.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<bool>("IsDone");
+
+                    b.Property<int>("NotebookId");
+
                     b.Property<byte[]>("Timestamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();

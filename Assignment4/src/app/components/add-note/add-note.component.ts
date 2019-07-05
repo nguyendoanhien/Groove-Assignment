@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-note.component.css']
 })
 export class AddNoteComponent implements OnInit {
-
+  notebookId: number = 1;
   addnoteForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
@@ -35,9 +35,8 @@ export class AddNoteComponent implements OnInit {
 
   addNote() {
     debugger
-    let _tittle : string = this.f.tittle.value;
-    let _description : string = this.f.description.value;
-    let _notebookid : number = this.f.notebookid.value;
+    const _tittle: string = this.f.tittle.value;
+    const _description: string = this.f.description.value;
     let _username: string;
     this.userService.displayNameSub$.subscribe((name: string) => {
       _username = name;
@@ -45,9 +44,9 @@ export class AddNoteComponent implements OnInit {
     const newNote: Note = {
       title: _tittle,
       description: _description,
-      notebookId: _notebookid,
+      notebookId: this.notebookId,
       id: 0,
-      finished: false,
+      isdone: false,
       createdBy: _username,
       createdOn: null,
       updatedOn: null,
@@ -60,6 +59,10 @@ export class AddNoteComponent implements OnInit {
       window.alert('Added Successfully');
       this.router.navigate(['/note/list']);
     }, err => console.log(err));
+  }
 
+  selectedOption(id: number) {
+    console.log(id);
+    this.notebookId = id;
   }
 }
