@@ -18,5 +18,6 @@ namespace PersonalNotesAPI.Models.Note
 
         [DisplayName("Is done?")] public bool isdone { get; set; }
 
+        public int NotebookId { get; set; }
     }
 }
