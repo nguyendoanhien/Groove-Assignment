@@ -10,16 +10,15 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./detail-note.component.css']
 })
 export class DetailNoteComponent implements OnInit {
-
-  public note: INote;
+  public note: Note;
   constructor(
-    private router: ActivatedRouteSnapshot,
+    private router: ActivatedRoute,
     private noteService: NoteService,
     private authService: AuthService
   ) { }
 
   ngOnInit() {
-    const id = +this.router.paramMap.get('id');
+    const id = +this.router.snapshot.paramMap.get('id');
     this.noteService.getNote(id).subscribe(val => {
       console.log(val);
       this.note = val;

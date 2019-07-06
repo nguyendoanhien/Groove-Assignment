@@ -6,28 +6,30 @@ import { NoteListComponent } from '../components/note-list/note-list.component';
 import { EditNoteComponent } from '../components/edit-note/edit-note.component';
 import { DetailNoteComponent } from '../components/detail-note/detail-note.component';
 import { AddNoteComponent } from '../components/add-note/add-note.component';
-import { AddNoteGuard } from '../services/route-guard.service';
-import { PageNotFoundComponent} from '../components/page-not-found/page-not-found.component';
-import { RouteGuardCanActivate } from '../services/RouteGuardCanActivate';
+import { PageNotFoundComponent } from '../components/page-not-found/page-not-found.component';
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   { path: 'note/list', component: NoteListComponent },
-  { path: 'note/edit/:id', component: EditNoteComponent,
-  canActivate: [RouteGuardCanActivate] },
+  {
+    path: 'note/edit/:id',
+    component: EditNoteComponent
+  },
   {
     path: 'note/detail/:id',
-    component: DetailNoteComponent,
-    canActivate: [RouteGuardCanActivate]
+    component: DetailNoteComponent
   },
   {
     path: 'note/add',
-    component: AddNoteComponent,
-    canDeactivate: [AddNoteGuard]
+    component: AddNoteComponent
   },
   {
     path: 'notfound',
     component: PageNotFoundComponent
+  },
+  {
+    path: '',
+    component: DashboardComponent
   }
 ];
 

@@ -2,17 +2,15 @@
   Please Login!!!
 </div>
 <div *ngIf='checkAuth()'>
-  <p>
-    add-note works!
-  </p>
+  <div class="col-12 bar">Add Note</div>
   <div class="col-8">
-    <form [formGroup]="addnoteForm" #addnote="ngForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="addnoteForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label>Tittle</label>
-        <input type="text" class="form-control" formControlName="tittle" [ngClass]="{ 'is-invalid': submitted && f.tittle.errors }">
-        <div *ngIf="submitted && !!f.tittle.errors" class="invalid-feedback">
-            <div *ngIf="!!f.tittle.errors.required">Tittle is required</div>
-            <div *ngIf="!!f.tittle.errors.maxlength">Tittle must be less than 50 characters</div>
+        <label>Title</label>
+        <input type="text" class="form-control" formControlName="title" [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+        <div *ngIf="submitted && !!f.title.errors" class="invalid-feedback">
+            <div *ngIf="!!f.title.errors.required">Title is required</div>
+            <div *ngIf="!!f.title.errors.maxlength">Title must be less than 50 characters</div>
         </div>
       </div>
       <div class="form-group">

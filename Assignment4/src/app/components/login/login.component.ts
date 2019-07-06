@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { first } from 'rxjs/operators';
-import { NgForm } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
-import * as JWT from 'jwt-decode';
 import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-login',
@@ -17,6 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   userLoginSuccess: User;
   returnUrl: string;
+  submitted = false;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -33,16 +31,16 @@ export class LoginComponent implements OnInit {
   }
   get f() { return this.loginForm.controls; }
   onSubmit() {
+    this.submitted = true;
     const a: User = { username: this.f.username.value, password: this.f.password.value };
     this.userService.Login(a)
       .subscribe(val => {
         console.log(val);
         this.userLoginSuccess = val;
         this.authService.setToken(val);
-
         this.SetUserName(a);
         this.SetIsAuth();
-        this.IsLogin();
+        if(this.f.username.value != '' && this.f.password.value != '') { this.IsLogin() } ;
       }, err => {
         console.log(err);
       });
@@ -51,11 +49,10 @@ export class LoginComponent implements OnInit {
 
   IsLogin() {
     if (this.authService.getToken() === 'null') {
-      window.alert('Đăng nhập thất bại');
+      window.alert('Your password is invalid. Please try again');
       this.authService.removeToken();
       this.router.navigate(['/login']);
     } else if (this.authService.getToken() !== 'null') {
-      window.alert('Đăng nhập thành công');
       this.router.navigate(['/dashboard']);
     }
   }

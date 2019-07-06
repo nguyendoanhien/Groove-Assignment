@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Note } from 'src/app/models/note';
 import { NoteService } from 'src/app/services/note.service';
 import { validateConfig } from '@angular/router/src/config';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Location } from '@angular/common';
 @Component({
@@ -11,7 +11,8 @@ import { Location } from '@angular/common';
   templateUrl: './edit-note.component.html',
   styleUrls: ['./edit-note.component.css']
 })
-export class EditNoteComponent implements OnInit {
+export class EditNoteComponent implements OnInit {  
+  @ViewChild('f') public editNoteForm: NgForm;
   notebookid = 1;
   checkedIsdone: boolean;
   public note: Note;

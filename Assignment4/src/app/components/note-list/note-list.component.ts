@@ -34,7 +34,7 @@ export class NoteListComponent implements OnInit {
     this.noteService.getNote(id).subscribe(val => {
       console.log(val);
       this.router.navigate([`/note/detail/${id}`]);
-    }, err => console.log(err));
+    }, err => console.log('lỗi ở note-list'));
   }
 
   deleteNote(id: number) {

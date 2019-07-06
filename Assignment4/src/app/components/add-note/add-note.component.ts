@@ -12,7 +12,6 @@ import { Location } from '@angular/common';
   styleUrls: ['./add-note.component.css']
 })
 export class AddNoteComponent implements OnInit {
-  @ViewChild('addnote') public addNoteForm: NgForm;
   notebookId = 1;
   addnoteForm: FormGroup;
   submitted = false;
@@ -27,7 +26,7 @@ export class AddNoteComponent implements OnInit {
 
   ngOnInit() {
     this.addnoteForm = this.formBuilder.group({
-      tittle: ['', [Validators.required, Validators.maxLength(50)]],
+      title: ['', [Validators.required, Validators.maxLength(50)]],
       description: ['', Validators.required]
     });
   }
@@ -40,14 +39,14 @@ export class AddNoteComponent implements OnInit {
   }
 
   addNote() {
-    const _tittle: string = this.f.tittle.value;
+    const _title: string = this.f.title.value;
     const _description: string = this.f.description.value;
     let _username: string;
     this.userService.displayNameSub$.subscribe((name: string) => {
       _username = name;
     });
     const newNote: Note = {
-      title: _tittle,
+      title: _title,
       description: _description,
       notebookId: this.notebookId,
       id: 0,
@@ -61,7 +60,7 @@ export class AddNoteComponent implements OnInit {
     };
     this.noteService.addNote(newNote).subscribe(val => {
       console.log(val);
-      window.alert('Added Successfully');
+      window.alert('Note Added Successfully');
       this.router.navigate(['/note/list']);
     }, err => console.log(err));
   }
@@ -77,6 +76,7 @@ export class AddNoteComponent implements OnInit {
     } else { return false; }
   }
   goBack() {
-    this.location.back();
+    if (window.confirm('Are you sure you want to leave this page?'))
+      this.location.back();
   }
 }

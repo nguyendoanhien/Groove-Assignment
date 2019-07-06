@@ -2,17 +2,15 @@
   Please Login!!!
 </div>
 <div *ngIf='checkAuth()'>
-  <p>
-    edit-note works!
-  </p>
+  <div class="col-12 bar">Add Note</div>
   <form #f="ngForm" (ngSubmit)="f.form.valid && onSumit()" *ngIf="note">
     <div class="form-group">
       <label for="title">Title</label>
-      <input id="tittle" class="form-control" name="title" [(ngModel)]="note.title" #tittleField="ngModel"
-        [ngClass]="{ 'is-invalid': f.submitted && tittleField.invalid }" required maxlength="50">
-      <div *ngIf="f.submitted && tittleField.invalid" class="invalid-feedback">
-        <div *ngIf="!!tittleField.errors.required">Tittle is required</div>
-        <div *ngIf="!!tittleField.errors.maxlength">Tittle must be less than 50 characters</div>
+      <input id="title" class="form-control" name="title" [(ngModel)]="note.title" #titleField="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && titleField.invalid }" required maxlength="50">
+      <div *ngIf="f.submitted && titleField.invalid" class="invalid-feedback">
+        <div *ngIf="!!titleField.errors.required">Title is required</div>
+        <div *ngIf="!!titleField.errors.maxlength">title must be less than 50 characters</div>
       </div>
     </div>
     <div class="form-group">

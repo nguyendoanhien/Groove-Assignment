@@ -15,7 +15,6 @@ import { DetailNoteComponent } from './components/detail-note/detail-note.compon
 import { AddNoteComponent } from './components/add-note/add-note.component';
 import { AddNoteGuard } from './services/route-guard.service';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { RouteGuardCanActivate } from './services/RouteGuardCanActivate';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,8 +40,7 @@ import { RouteGuardCanActivate } from './services/RouteGuardCanActivate';
   },
     AuthService,
     UserService,
-    AddNoteGuard,
-    RouteGuardCanActivate
+    AddNoteGuard
   ],
   bootstrap: [AppComponent]
 })
