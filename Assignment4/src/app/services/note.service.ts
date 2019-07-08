@@ -15,7 +15,6 @@ export class NoteService {
   }
 
   getNote(id: number): Observable<Note> {
-    debugger
     return this._http.get<Note>(`https://localhost:44316/api/note/${id}`);
   }
 

@@ -1,6 +1,20 @@
 <div *ngIf="checkAuth()">
-  <p>Đây là dashboard</p>
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome to the world of notes</h1>
+    <p class="lead">My brain has too many tabs open</p>
+    <hr class="my-4">
+    <p class="lead">
+      <a class="btn btn-light btn-lg" [routerLink]="['/note/add']" role="button">Add note</a>
+    </p>
+  </div>
 </div>
 <div *ngIf="!checkAuth()">
-  <p>Please login!!!</p>
+  <div class="jumbotron">
+    <h1 class="display-4">Welcome to the world of notes</h1>
+    <p class="lead">My brain has too many tabs open</p>
+    <hr class="my-4">
+    <p class="lead">
+      <a class="btn btn-light btn-lg" [routerLink]="['/login']"  role="button">Login</a>
+    </p>
+  </div>
 </div>

@@ -1,5 +1,5 @@
-<div *ngIf='checkAuth()'>
-  <p>Detail Note</p>
+<div class="col-12">
+  <div class="col-12 bar">Detail Note</div>
   <table class='table table-responsive'>
     <tbody *ngIf="note">
       <tr>
@@ -8,14 +8,14 @@
     </tbody>
     <tr>
       <td>Title </td>
-      <td>{{note.title }}</td>
+      <td>{{note.title}}</td>
     </tr>
     <tr>
       <td>Description</td>
       <td>{{note.description}}</td>
     </tr>
     <tr>
-      <td>Finished</td>
+      <td>Is Done?</td>
       <td><input type="checkbox" [value]="note.isdone" [checked]="note.isdone" disabled></td>
     </tr>
     <tr>
@@ -42,7 +42,7 @@
 
   </table>
 </div>
-
+<!-- 
 <div *ngIf='!checkAuth()'>
   Please login!!
-</div>
+</div> -->

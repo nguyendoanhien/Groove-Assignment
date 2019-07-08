@@ -10,8 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./detail-note.component.css']
 })
 export class DetailNoteComponent implements OnInit {
-
-  public note: INote;
+  public note: Note;
   constructor(
     private router: ActivatedRoute,
     private noteService: NoteService,
