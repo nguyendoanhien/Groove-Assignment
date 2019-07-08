@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PersonalNotesAPI.Models;
+using PersonalNotesAPI.DataBase;
 
 [assembly: HostingStartup(typeof(PersonalNotesAPI.Areas.Identity.IdentityHostingStartup))]
 namespace PersonalNotesAPI.Areas.Identity
@@ -15,12 +15,6 @@ namespace PersonalNotesAPI.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<NoteContext>(options =>
-                    options.UseSqlServer(
-                        context.Configuration.GetConnectionString("NoteContextConnection")));
-
-                services.AddDefaultIdentity<IdentityUser>()
-                    .AddEntityFrameworkStores<NoteContext>();
             });
         }
     }

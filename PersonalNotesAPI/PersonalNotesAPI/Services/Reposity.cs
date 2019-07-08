@@ -10,7 +10,7 @@ namespace PersonalNotesAPI.Services
         {
             IEnumerable<Note> GetNoteList();
             Note GetNote(int Id);
-            Note CreateNote(string newNote);
+            Note CreateNote(Note note);
             Note UpdateNote(Note noteChange);
             Note RemoveNote(int Id);
         }
@@ -19,7 +19,7 @@ namespace PersonalNotesAPI.Services
         {
             IEnumerable<Notebook> GetNotebookList();
             Notebook GetNotebook(int Id);
-            Notebook CreateNotebook(string name);
+            Notebook CreateNotebook(Notebook notebook);
             Notebook UpdateNotebook(Notebook notebookChange);
             Notebook RemoveNotebook(int Id);
 

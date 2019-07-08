@@ -5,12 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PersonalNotesAPI.Services;
 using PersonalNotesAPI.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace PersonalNotesAPI.Controllers
 {
+    
     [Route("api/[controller]")]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class NotebookController : Controller
     {
         INoteBookRepository _notebook; 
@@ -35,9 +39,9 @@ namespace PersonalNotesAPI.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public void Post([FromBody]string name)
+        public void Post([FromBody]Notebook notebook)
         {
-            _notebook.CreateNotebook(name);
+            _notebook.CreateNotebook(notebook);
         }
 
         // PUT api/<controller>/5

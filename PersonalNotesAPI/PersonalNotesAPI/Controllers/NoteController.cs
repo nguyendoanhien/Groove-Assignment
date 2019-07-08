@@ -27,34 +27,31 @@ namespace PersonalNotesAPI.Controllers
         public IEnumerable<Note> GetNotes()
         {
             IEnumerable<Note> notes = _note.GetNoteList();
-            return notes;
+            return notes.Where(x => x.Deleted == false);
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
         public Note Get(int id)
         {
-            Note note = new Note();
-            note = _note.GetNote(id);
-            return note;
+           return _note.GetNote(id);
+            
         }
 
         // POST api/<controller>
-        [ChromeFilter]
+        //[ChromeFilter]
         [HttpPost]
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Note note)
         {
-            _note.CreateNote(value);
+             _note.CreateNote(note);
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Note value)
         {
-            Note note = new Note();
-            note.Id = id;
-            note.Description = value;
-            _note.UpdateNote(note);
+           
+            _note.UpdateNote(value);
 
         }
 

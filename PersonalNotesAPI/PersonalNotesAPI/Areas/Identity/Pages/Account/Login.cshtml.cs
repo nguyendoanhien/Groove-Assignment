@@ -9,19 +9,25 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using PersonalNotesAPI.DataBase;
+using Microsoft.Extensions.Configuration;
+using PersonalNotesAPI.Auth;
 
 namespace PersonalNotesAPI.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
+        
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IConfiguration _config;
 
-        public LoginModel(SignInManager<IdentityUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger,IConfiguration config)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _config = config;
         }
 
         [BindProperty]
@@ -33,6 +39,8 @@ namespace PersonalNotesAPI.Areas.Identity.Pages.Account
 
         [TempData]
         public string ErrorMessage { get; set; }
+        public ApplicationUser Username { get; private set; }
+        //public string Password { get; private set; }
 
         public class InputModel
         {
@@ -67,8 +75,9 @@ namespace PersonalNotesAPI.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
-
+                returnUrl = returnUrl ?? Url.Content("~/");
+            
+                       
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
@@ -77,17 +86,19 @@ namespace PersonalNotesAPI.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    var TokenString = AuthTokenUtil.GetJwtTokenString(Input.Email, _config);
+                    return new ObjectResult(TokenString);
+                    //return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
                 {
                     return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 }
-                if (result.IsLockedOut)
-                {
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
-                }
+               // if (result.IsLockedOut)
+               // {
+                  // _logger.LogWarning("User account locked out.");
+                  //  return RedirectToPage("./Lockout");
+                //}
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -95,8 +106,26 @@ namespace PersonalNotesAPI.Areas.Identity.Pages.Account
                 }
             }
 
+
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
+        //[HttpPost]
+        //[Route("login")]
+        //public async Task<IActionResult> Login(LoginModel data)
+        //{
+
+        //    // This doesn't count login failures towards account lockout
+        //    // To enable password failures to trigger account lockout, set lockoutOnFailure: true
+        //    var result = await _signInManager.PasswordSignInAsync(data.Username, data.Password, false, lockoutOnFailure: true);
+        //    if (result.Succeeded)
+        //    {
+        //        _logger.LogInformation("User logged in.");
+        //        var tokenString = AuthTokenUtil.GetJwtTokenString(data.Username, _config);
+        //        return new ObjectResult(tokenString);
+        //    }
+        //    return Unauthorized();
+        //}
     }
 }

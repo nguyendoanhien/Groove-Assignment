@@ -18,10 +18,12 @@ namespace PersonalNotesAPI.Services
             _context = context;
         }
 
-        public Notebook CreateNotebook(string name)
+        public Notebook CreateNotebook(Notebook notebook)
         {
-            Notebook notebook = new Notebook();
-            notebook.Name = name;
+            notebook.CreatedBy = "adajhsdavjsdasa";
+            notebook.CreatedOn = DateTime.Now;
+            _context.Notebooks.Add(notebook);
+            _context.SaveChanges();
             return notebook;
         }
 

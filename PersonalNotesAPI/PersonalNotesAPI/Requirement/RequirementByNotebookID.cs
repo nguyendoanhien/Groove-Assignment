@@ -9,10 +9,10 @@ namespace PersonalNotesAPI.Requirement
 {
     public class RequirementByNotebookID : ValidationAttribute
     {
-        public NoteBookRepository notebook;
+        public INoteBookRepository notebook;
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            notebook = (NoteBookRepository)validationContext.GetService(typeof(NoteBookRepository));
+            notebook = (INoteBookRepository)validationContext.GetService(typeof(INoteBookRepository));
             if (notebook.GetNotebookList().FirstOrDefault(x => x.Id == (int)value) == null)
                 return new ValidationResult("ID is not exist");
             else return ValidationResult.Success;

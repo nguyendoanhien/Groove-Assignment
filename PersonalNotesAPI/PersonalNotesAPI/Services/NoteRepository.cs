@@ -18,10 +18,14 @@ namespace PersonalNotesAPI.Services
             _context = context;
         }
 
-        public Note CreateNote(string newNote)
+        public Note CreateNote(Note note)
         {
-            Note note = new Note();
-            note.Description = newNote;
+            note.CreatedBy = "";
+            note.CreatedOn = DateTime.Now;
+            note.NotebookId = 4;
+            note.Finished = true;
+            _context.Add(note);
+            _context.SaveChanges();
             return note;
         }
 

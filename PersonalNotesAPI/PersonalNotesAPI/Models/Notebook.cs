@@ -11,7 +11,6 @@ namespace PersonalNotesAPI.Models
     public class Notebook
     {
         [Key]
-        [RequirementByNotebookID]
         public int Id { get; set; }
         [Required]
         [StringLength(50)]
@@ -33,7 +32,7 @@ namespace PersonalNotesAPI.Models
 
         
 
-        [RequirementByParentID]
+      //  [RequirementByParentID]
         public int? ParentId { get; set; }
 
         public virtual IEnumerable<Note> Notes { get; set; }
