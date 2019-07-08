@@ -53,4 +53,4 @@ export class RouteGuardCanActivate implements CanActivate {
   // {
   //   const noteExists = this._noteService.getNote(id).subscribe(val=>{console.log(val)})
   // }
-}
+
