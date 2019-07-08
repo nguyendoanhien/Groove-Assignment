@@ -1,0 +1,16 @@
+<nav class="navbar navbar-dark bg-dark">
+  <span class="navbar-brand mb-0 h1">{{username}}</span>
+  <button class="btn btn-danger my-2 my-sm-0" (click)="onLogout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+</nav>
+
+<div class="container">
+  <!-- <div class="row">
+    <div class="col-8">
+      <app-note-list></app-note-list>
+    </div>
+    <div class="col-4">
+      <app-note-detail></app-note-detail>
+    </div>
+  </div> -->
+  <router-outlet></router-outlet>
+</div>

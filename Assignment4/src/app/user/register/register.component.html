@@ -1,0 +1,44 @@
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form [formGroup]="service.formModel" autocomplete="off" (submit)="onSubmit()"
+                class="login100-form validate-form p-l-55 p-r-55 p-t-178">
+                <span class="login100-form-title">
+                    Register
+                </span>
+
+                <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter username">
+                    <input class="input100" type="text" formControlName="UserName" placeholder="Email">
+                    <span class="focus-input100"></span>
+                </div>
+                <label class="text-danger"
+                    *ngIf="service.formModel.get('UserName').touched  && service.formModel.get('UserName').errors?.email">Invalid
+                    email address.</label>
+
+                <div class="wrap-input100 validate-input" data-validate="Please enter password">
+                    <input class="input100" type="password" formControlName="Password" placeholder="Password">
+                    <span class="focus-input100"></span>
+                </div>
+                <label class="text-danger"
+                    *ngIf="service.formModel.get('Password').touched && service.formModel.get('Password').errors?.required">This
+                    field is required.</label>
+
+                <div class="container-login100-form-btn mt-5">
+                    <button type="submit" class="login100-form-btn">
+                        Register
+                    </button>
+                </div>
+
+                <div class="flex-col-c p-t-170 p-b-40">
+                    <span class="txt1 p-b-9">
+                        You have an account?
+                    </span>
+
+                    <a [routerLink]="['/user/login']" class="txt3">
+                        Sign In now
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

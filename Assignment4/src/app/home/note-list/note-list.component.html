@@ -1,0 +1,27 @@
+<div class="mt-5">
+<a [routerLink]="['/note/create']" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Create</a>
+</div>
+<table class="table table-hover mt-1">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Finished</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let note of noteService.listNote">
+      <th scope="row">{{note.id}}</th>
+      <td>{{note.title}}</td>
+      <td>{{note.description}}</td>
+      <td>{{note.finished}}</td>
+      <td><button (click)="deleteNote(note.id)" class="btn btn-danger"><i class="fa fa-trash"
+            aria-hidden="true"></i></button>
+        <button (click)="goEdit(note.id)" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+      </td>
+      <!-- <td><button (click)="deleteNote(note.id)" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td> -->
+    </tr>
+  </tbody>
+</table>
