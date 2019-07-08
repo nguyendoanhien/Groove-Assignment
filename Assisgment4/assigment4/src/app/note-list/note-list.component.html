@@ -1,0 +1,45 @@
+<table class="table table-striped mt-3" style="width: 50%;margin-left: 350px ; margin-top: 300px;text-align: left">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Notebook ID </th>
+        <!-- <th scope="col">finished</th> -->
+        
+        <!-- <th scope="col"> createdBy  </th>
+        <th scope="col"> createdOn </th>
+        <th scope="col"> updatedBy </th>
+        <th scope="col"> updatedOn </th>
+        <th scope="col"> deleted </th> -->
+        
+      <th> <button type="button" class="btn btn-outline-primary" routerLink="/addnote" routerLinkActive="active">
+        +
+      </button>
+      </th> 
+      </tr>
+    </thead>
+<tbody>
+        <tr *ngFor="let note of notelist"> 
+            <td scope="col">{{note.id}}</td>  
+            <td scope="col">{{note.title}}</td>  
+            <td scope="col">{{note.description}}</td>  
+            <td scope="col">{{note.notebookId }}</td>
+            <!-- <td scope="col">{{note.finished}}</td>   
+             <td scope="col">{{note.notebookId }}</td>  
+            <td scope="col">{{note.createdBy}}</td>  
+            <td scope="col">{{note.createdOn}}</td>  
+            <td scope="col">{{note.updatedB}}</td>  
+            <td scope="col">{{note.updatedOn}}</td>    
+             <td scope="col">{{note.deleted}}</td>   --> 
+            <td> <button type="button" class="btn btn-outline-primary" 
+             (click)="Delete(note.id)">X
+            </button>
+            </td>
+              <td>
+               <button type="button" class="btn btn-outline-primary" routerLink="/editnote/{{note.id}}" routerLinkActive="active">Edit</button>
+              </td>
+        </tr>
+    
+    </tbody>
+  </table>
