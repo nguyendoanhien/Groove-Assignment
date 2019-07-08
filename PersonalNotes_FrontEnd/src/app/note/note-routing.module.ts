@@ -8,11 +8,11 @@ import { EditGuardService } from '../core/edit-guard.service';
 
 const routes: Routes = [
   {
-    path: '', canActivate: [AuthGuardService] ,children: [
+    path: '', canActivate: [AuthGuardService], children: [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: NoteListComponent },
       { path: 'create', component: NoteCreateComponent, canDeactivate: [AuthGuardService] },
-      { path: 'edit/:id', component: NoteEditComponent }
+      { path: 'edit/:id', component: NoteEditComponent, canActivate: [EditGuardService] }
     ]
   }
 ];

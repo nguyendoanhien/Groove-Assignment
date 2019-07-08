@@ -5,6 +5,7 @@ import { NoteService } from 'src/app/note.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserProfileService } from 'src/app/core/identity/userprofile.service';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-note-edit',
@@ -28,7 +29,6 @@ export class NoteEditComponent implements OnInit {
       console.log(note);
       this._router.navigate(['note', 'list']);
     }, (error: any) => console.log(error));
-
 
   }
 
