@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Note } from './note.model';
 // import { HttpClient, HttpResponse } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { catchError } from 'rxjs/operators';
-
+import { catchError, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NoteService {
 
-  constructor(private _httpClient: HttpClient) { }
+  constructor(private _httpClient: HttpClient, private router: Router) { }
 
   getNote(id: number): Observable<Note> {
-    return this._httpClient.get<Note>(`${environment.apiUrl}/${id}`);
+    debugger;
+    return this._httpClient.get<Note>(`${environment.apiUrl}/${id}`).pipe(map(data => data), catchError(
+      err => {
+        return throwError(err.message);
+      }
+    ));
   }
   getNotes(): Observable<Note[]> {
 
@@ -57,6 +62,7 @@ export class NoteService {
 
   }
   editNote(id: number, note: Note): Observable<Note> {
+    debugger;
     return this._httpClient.put<Note>(`${environment.apiUrl}/${id}`, note);
 
   }
@@ -64,4 +70,16 @@ export class NoteService {
     return this._httpClient.post<Note>(`${environment.apiUrl}`, note);
 
   }
+  private handleError(error: any): Promise<Note> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
+  // private handleError(errorResponse: HttpErrorResponse) {
+  //   if (errorResponse.error instanceof ErrorEvent) {
+  //     console.log('Client Side Error', errorResponse.error.message);
+  //   } else {
+  //     console.log('Server Side Error', errorResponse.error.message);
+  //   }
+  //   return throwError('Uknown error !!!');
+  // }
 }

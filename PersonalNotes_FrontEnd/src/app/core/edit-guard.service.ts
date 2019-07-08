@@ -6,24 +6,25 @@ import { Observable } from 'rxjs';
 import { NoteService } from '../note.service';
 import { map } from 'rxjs/operators';
 
-
 @Injectable()
 export class EditGuardService implements CanActivate, CanActivateChild {
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const id = +route.paramMap.get('id');
+    debugger;
     return this._noteService.getNote(id).pipe(
       map(res => {
+        debugger;
         if (res) {
           return true;
         }
 
         this.router.navigate(['note', 'list']);
-
-      })
-    );
-  }
+      }
+    )
+  )
+}
 
 
   canActivateChild(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

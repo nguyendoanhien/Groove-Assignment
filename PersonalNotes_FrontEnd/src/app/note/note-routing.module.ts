@@ -12,7 +12,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'list', pathMatch: 'full' },
       { path: 'list', component: NoteListComponent },
       { path: 'create', component: NoteCreateComponent, canDeactivate: [AuthGuardService] },
-      { path: 'edit/:id', component: NoteEditComponent, canActivate: [EditGuardService] }
+      { path: 'edit/:id', component: NoteEditComponent }
     ]
   }
 ];
