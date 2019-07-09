@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -62,9 +63,9 @@ namespace PersonalNotesAPI
                             context.Response.WriteAsync("Token is not valid.").Wait();
                             return Task.CompletedTask;
                         }//,
-                        //OnChallenge = context =>
-                        //{
-                            
+                         //OnChallenge = context =>
+                         //{
+
                         //    context.Response.StatusCode = 401;
                         //    context.Response.ContentType = "text/plain";
                         //    context.Response.WriteAsync("Please provide token.").Wait();
@@ -123,6 +124,23 @@ namespace PersonalNotesAPI
                 options.SlidingExpiration = true;
                 options.Cookie.Name = "GrooveNoteAPIIdentity";
             });
+
+
+
+            services.AddAuthentication()
+        .AddGoogle(options =>
+        {
+            IConfigurationSection googleAuthNSection =
+                Configuration.GetSection("Authentication:Google");
+
+            options.ClientId = googleAuthNSection["ClientId"];
+            options.ClientSecret = googleAuthNSection["ClientSecret"];
+        });
+        }
+
+        public void ConfigureAuth(IApplicationBuilder app)
+        {
+
         }
     }
 }

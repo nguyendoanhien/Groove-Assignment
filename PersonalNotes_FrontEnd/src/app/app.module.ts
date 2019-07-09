@@ -19,7 +19,28 @@ import { DisplayNoteComponent } from './note/display-note.component';
 import { FormsModule } from '@angular/forms';
 import { LoginGuardService } from './core/login-guard.service';
 import { EditGuardService } from './core/edit-guard.service';
+import {
+  SocialLoginModule,
+  AuthServiceConfig,
+  GoogleLoginProvider,
+  FacebookLoginProvider
+} from 'angularx-social-login';
 
+import { getAuthServiceConfigs } from './socialloginConfig';
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("425431489538-gipiukdicibcj7d9c3cm45nkk6tiqgtv.apps.googleusercontent.com")
+  },
+  {
+    id: FacebookLoginProvider.PROVIDER_ID,
+    provider: new FacebookLoginProvider("Facebook-App-Id")
+  }
+]);
+export function provideConfig() {
+  debugger;
+  return config;
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,8 +58,9 @@ import { EditGuardService } from './core/edit-guard.service';
     BrowserAnimationsModule,
     HttpClientModule,
     MaterialModule,
-    FormsModule,
-
+    FormsModule
+    ,
+    SocialLoginModule
   ],
   exports: [
   ],
@@ -53,6 +75,14 @@ import { EditGuardService } from './core/edit-guard.service';
     AuthGuardService,
     EditGuardService,
     UserProfileService
+    ,
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
+    }
+
+
+
   ],
   bootstrap: [AppComponent]
 })

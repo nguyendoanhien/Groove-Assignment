@@ -14,6 +14,9 @@ const authUrl = environment.authUrl;
 
 @Injectable()
 export class UserProfileService {
+  sendToRestApiMethod(idToken: string) {
+    throw new Error("Method not implemented.");
+  }
 
   private userProfile: UserProfileModel;
   public color: string = "Red";
